@@ -1,0 +1,21 @@
+.paper{
+  padding: 1rem;
+}
+.form {
+  display: flex ;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.fileInput {
+  width: 97%;
+  margin: 10px 0;
+}
+.buttonSubmit {
+  margin-bottom: 10px;
+  background-color:  rgb(231, 139, 10);;
+}
+.buttonClear{
+  margin-bottom: 10px;
+  color:red ;
+}
