@@ -8,20 +8,26 @@ import {
 } from '@mui/material';
 import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
-import { Fab } from '@mui/material';
+
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import classes from './Styles.module.css';
 import EditPost from './EditPost/EditPost';
+import { FetchContext } from '../../../context/fetchCtx';
 
 const Post = ({ post }) => {
+  const { FetchPosts } = useContext(FetchContext);
   const [isEdit, setIsEdit] = useState();
   useEffect(() => {
-    setIsEdit(true);
+    setIsEdit(false);
   }, []);
+  const deletePost = (e) => {
+    e.preventDefault();
+    FetchPosts(`http://localhost:5000/api/posts/${post._id}`, null, 'DELETE');
+  };
 
-  return !isEdit ? (
+  return isEdit ? (
     <>
       <EditPost setIsEdit={setIsEdit} post={post} />
     </>
@@ -42,7 +48,7 @@ const Post = ({ post }) => {
         <Button
           onClick={(e) => {
             e.preventDefault();
-            setIsEdit(false);
+            setIsEdit(true);
           }}
           size="large"
         >
@@ -72,7 +78,7 @@ const Post = ({ post }) => {
           <FavoriteIcon fontSize="small" />
           Like
         </Button>
-        <Button size="small" color="primary" onClick={() => {}}>
+        <Button size="small" color="primary" onClick={deletePost}>
           <DeleteIcon fontSize="small" />
           Delete
         </Button>

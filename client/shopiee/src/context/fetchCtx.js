@@ -5,11 +5,17 @@ export const FetchProvider = ({ children }) => {
   const [err, setErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const FetchPosts = async (url, data, method) => {
-    const requestOpt = {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
-    };
+    let requestOpt = {};
+    data
+      ? (requestOpt = {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        })
+      : (requestOpt = {
+          method,
+          headers: { 'Content-Type': 'application/json' },
+        });
     try {
       setIsLoading(true);
       const response = await fetch(url, requestOpt);

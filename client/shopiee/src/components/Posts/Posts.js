@@ -7,7 +7,7 @@ import { useFetch } from '../../hooks/useFetch';
 
 const Posts = () => {
   const { posts, err, isLoading } = useFetch('http://localhost:5000/api/posts');
-  console.log(posts);
+
   return isLoading ? (
     <CircularProgress />
   ) : (

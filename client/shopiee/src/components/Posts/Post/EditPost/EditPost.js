@@ -25,7 +25,7 @@ const Form = ({ post, setIsEdit }) => {
     clear();
   };
   const clear = () => {
-    setIsEdit(true);
+    setIsEdit(false);
   };
   return (
     <Paper className={classes.paper}>
