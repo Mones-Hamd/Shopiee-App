@@ -1,18 +1,41 @@
+
 .appBar {
-  border-radius: 15;
+  display: flex;
+  flex-direction: row  !important;
+  border-radius: 5px;
   margin: 30px 0;
-  display: 'flex';
-  flex-direction: 'row';
-  justify-content: 'center';
-  align-items: 'center';
+  justify-content: space-between;
+  align-items: center;
+
 }
 .logo{
   margin-left: 20px;
   max-width: 20%;
   justify-self: start;
+  display: flex;
 }
 .image {
-
-  width: 100%;
+  display: flex;
+  width: 90%;
   margin: 20px auto;
+}
+.toolbar {
+  justify-self: end;
+  display: flex;
+  justify-content: flex-end;
+  width: 30%;
+}
+.profile {
+  display: flex;
+  justify-content: space-between;
+  width: 400px;
+}
+.userName {
+  display: flex;
+  align-items: center;
+}
+
+.purple {
+
+color: blueviolet;
 }

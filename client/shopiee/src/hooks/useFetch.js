@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 export const useFetch = (url) => {
-  const [posts, setPosts] = useState([]);
+  const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState('');
 
@@ -8,15 +8,15 @@ export const useFetch = (url) => {
     (async () => {
       try {
         const response = await fetch(url);
-        const data = await response.json();
-        setPosts(data);
+        const result = await response.json();
+        setData(result);
       } catch (error) {
         setErr(error.message);
       } finally {
         setIsLoading(false);
       }
     })();
-  }, [url]);
+  }, [data]);
 
-  return { posts, isLoading, err };
+  return { data, isLoading, err };
 };

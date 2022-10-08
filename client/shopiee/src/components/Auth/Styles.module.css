@@ -19,7 +19,7 @@
     flex-direction: column;
   
   }
-  .submit{
-
-   
+  .notAuth{
+    display: flex;
+    justify-content: space-between;
   }
