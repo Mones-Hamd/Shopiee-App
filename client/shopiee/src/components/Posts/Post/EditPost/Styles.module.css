@@ -1,0 +1,19 @@
+.media {
+  height: 0;
+  padding-top: 56.25%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: 'darken';
+  border-radius: 10px 10px 0 0 ;
+}
+.editFeild{
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  gap :15px
+}
+.cardActions {
+  margin-top: 15px;
+  padding:0 16px 8px 16px;
+  display: flex;
+  justify-content: space-between;
+}
