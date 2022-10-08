@@ -19,7 +19,7 @@ export const FetchProvider = ({ children }) => {
     try {
       setIsLoading(true);
       const response = await fetch(url, requestOpt);
-      const data = await response.json();
+      await response.json();
     } catch (error) {
       setErr(error.message);
     } finally {

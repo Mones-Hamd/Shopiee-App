@@ -16,7 +16,7 @@ export const useFetch = (url) => {
         setIsLoading(false);
       }
     })();
-  }, [posts]);
+  }, [url]);
 
   return { posts, isLoading, err };
 };

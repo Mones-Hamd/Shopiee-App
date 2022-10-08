@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 
-import { CircularProgress, Grid } from '@mui/material';
+import { CircularProgress, Grid, Typography } from '@mui/material';
 import Post from './Post/Post';
 import classes from './Styles.module.css';
 import { useFetch } from '../../hooks/useFetch';
@@ -22,6 +22,11 @@ const Posts = () => {
           <Post post={post} />
         </Grid>
       ))}
+      {err && (
+        <Typography variant="h3" gutterBottom>
+          Some thing went Error try again later{' '}
+        </Typography>
+      )}
     </Grid>
   );
 };
