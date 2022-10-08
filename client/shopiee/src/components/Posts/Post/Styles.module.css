@@ -50,3 +50,6 @@
   display: flex;
   justify-content: space-between;
 }
+.editBtn{
+  color: white;
+}

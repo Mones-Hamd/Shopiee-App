@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Paper,
   Typography,
@@ -9,12 +9,12 @@ import {
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import classes from './Styles.module.css';
-
 import FileBase from 'react-file-base64';
-import { useCreate } from '../../hooks/Create';
+
+import { FetchContext } from '../../context/fetchCtx';
 const Form = () => {
-  const [error, setError] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+  const { err, isLoading, FetchPosts } = useContext(FetchContext);
+
   const [postData, setPostData] = useState({
     title: '',
     description: '',
@@ -23,16 +23,13 @@ const Form = () => {
     tags: [],
     selectedFile: '',
   });
+
   const HandleSubmit = (e) => {
     e.preventDefault();
-    const { err, isLoading } = useCreate(
-      `http://localhost:5000/api/posts`,
-      postData,
-    );
-    if (err) setError(err);
-    setIsLoading(isLoading);
+    FetchPosts(`http://localhost:5000/api/posts`, postData, 'post');
     clear();
   };
+
   const clear = () => {
     setPostData({
       title: '',
@@ -133,7 +130,7 @@ const Form = () => {
         >
           Clear
         </Button>
-        {error.length > 1 && <Typography>{error}</Typography>}
+        {err.length > 1 && <Typography>{err}</Typography>}
       </form>
     </Paper>
   );

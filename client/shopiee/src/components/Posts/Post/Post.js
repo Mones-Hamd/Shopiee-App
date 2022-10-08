@@ -6,15 +6,26 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material';
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 import { Fab } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import DeleteIcon from '@mui/icons-material/Delete';
 import classes from './Styles.module.css';
+import EditPost from './EditPost/EditPost';
+
 const Post = ({ post }) => {
-  return (
+  const [isEdit, setIsEdit] = useState();
+  useEffect(() => {
+    setIsEdit(true);
+  }, []);
+
+  return !isEdit ? (
+    <>
+      <EditPost setIsEdit={setIsEdit} post={post} />
+    </>
+  ) : (
     <Card className={classes.card}>
       <CardMedia
         image={post.selectedFile}
@@ -28,10 +39,15 @@ const Post = ({ post }) => {
         </Typography>
       </div>
       <div className={classes.overlay2}>
-        <Button onClick={() => {}} size="medium" />
-        <Fab color="secondary" aria-label="edit">
-          <EditIcon />
-        </Fab>
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            setIsEdit(false);
+          }}
+          size="large"
+        >
+          <EditIcon className={classes.editBtn} />
+        </Button>
       </div>
       <div className={classes.detail}>
         <Typography variant="body2" color="textSecondary">
@@ -44,7 +60,7 @@ const Post = ({ post }) => {
             {post.description}
           </Typography>
           <Typography variant="h5" gutterBottom>
-            {post.price}
+            {post.price} €
           </Typography>
           <Typography variant="h5" gutterBottom>
             Reach me :{post.contact}

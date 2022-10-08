@@ -1,17 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import { PostsContext } from '../../context/PostsCtx';
+import React, { useEffect } from 'react';
+
 import { CircularProgress, Grid } from '@mui/material';
 import Post from './Post/Post';
 import classes from './Styles.module.css';
-const Posts = () => {
-  const { posts, getPosts } = useContext(PostsContext);
-  useEffect(() => {
-    (async () => {
-      await getPosts('http://localhost:5000/api/posts');
-    })();
-  }, [posts]);
+import { useFetch } from '../../hooks/useFetch';
 
-  return !posts.length ? (
+const Posts = () => {
+  const { posts, err, isLoading } = useFetch('http://localhost:5000/api/posts');
+  console.log(posts);
+  return isLoading ? (
     <CircularProgress />
   ) : (
     <Grid
