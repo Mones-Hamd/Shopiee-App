@@ -28,7 +28,7 @@ const Posts = () => {
       ))}
       {err && (
         <Typography variant="h3" gutterBottom>
-          Some thing went Error try again later{' '}
+          Something went wrong!.. try again later{' '}
         </Typography>
       )}
     </Grid>

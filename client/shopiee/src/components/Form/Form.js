@@ -26,7 +26,11 @@ const Form = () => {
   const user = JSON.parse(localStorage.getItem('profile'));
   const HandleSubmit = (e) => {
     e.preventDefault();
-    FetchPosts(`http://localhost:5000/api/posts`, postData, 'post');
+    FetchPosts(
+      `http://localhost:5000/api/posts`,
+      { ...postData, name: user?.result?.name },
+      'post',
+    );
     clear();
   };
 
