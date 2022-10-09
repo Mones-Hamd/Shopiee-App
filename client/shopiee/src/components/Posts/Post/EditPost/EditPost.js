@@ -17,10 +17,14 @@ const Form = ({ post, setIsEdit }) => {
   const { err, isLoading, FetchPosts } = useContext(FetchContext);
 
   const [postData, setPostData] = useState(post);
-
+  const user = JSON.parse(localStorage.getItem('profile'));
   const HandleSubmit = (e) => {
     e.preventDefault();
-    FetchPosts(`http://localhost:5000/api/posts/${post._id}`, postData, 'put');
+    FetchPosts(
+      `http://localhost:5000/api/posts/${post._id}`,
+      { ...postData, name: user?.result?.name },
+      'put',
+    );
 
     clear();
   };

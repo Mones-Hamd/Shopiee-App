@@ -23,10 +23,14 @@ const Form = () => {
     tags: [],
     selectedFile: '',
   });
-
+  const user = JSON.parse(localStorage.getItem('profile'));
   const HandleSubmit = (e) => {
     e.preventDefault();
-    FetchPosts(`http://localhost:5000/api/posts`, postData, 'post');
+    FetchPosts(
+      `http://localhost:5000/api/posts`,
+      { ...postData, name: user?.result?.name },
+      'post',
+    );
     clear();
   };
 
@@ -40,6 +44,15 @@ const Form = () => {
       selectedFile: '',
     });
   };
+  if (!user?.result?.name) {
+    return (
+      <Paper className={classes.paper}>
+        <Typography variant="h6" align="center">
+          Please sign in to sell and post your items
+        </Typography>
+      </Paper>
+    );
+  }
   return (
     <Paper className={classes.paper}>
       <form

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { CircularProgress, Grid, Typography } from '@mui/material';
 import Post from './Post/Post';
@@ -6,7 +6,11 @@ import classes from './Styles.module.css';
 import { useFetch } from '../../hooks/useFetch';
 
 const Posts = () => {
-  const { posts, err, isLoading } = useFetch('http://localhost:5000/api/posts');
+  const {
+    data: posts,
+    err,
+    isLoading,
+  } = useFetch('http://localhost:5000/api/posts');
 
   return isLoading ? (
     <CircularProgress />
@@ -24,7 +28,7 @@ const Posts = () => {
       ))}
       {err && (
         <Typography variant="h3" gutterBottom>
-          Some thing went Error try again later{' '}
+          Something went wrong!.. try again later{' '}
         </Typography>
       )}
     </Grid>

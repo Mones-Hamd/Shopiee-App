@@ -11,3 +11,7 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+.css-1cjrmu8-MuiPaper-root-MuiAppBar-root{
+  display: flex;
+  flex-direction: row !important;
+}
