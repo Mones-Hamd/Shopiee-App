@@ -27,7 +27,7 @@ const Post = ({ post }) => {
     e.preventDefault();
     FetchPosts(`http://localhost:5000/api/posts/${post._id}`, null, 'DELETE');
   };
-  console.log(post);
+
   return isEdit ? (
     <>
       <EditPost setIsEdit={setIsEdit} post={post} />
@@ -45,19 +45,20 @@ const Post = ({ post }) => {
           {moment(post.createdAt).fromNow()}
         </Typography>
       </div>
-      {user?.result?._id === post.creator && (
-        <div className={classes.overlay2}>
-          <Button
-            onClick={(e) => {
-              e.preventDefault();
-              setIsEdit(true);
-            }}
-            size="large"
-          >
-            <EditIcon className={classes.editBtn} />
-          </Button>
-        </div>
-      )}
+      {user?.result?._id === post.creator ||
+        (user?.result?.sub === post?.creator && (
+          <div className={classes.overlay2}>
+            <Button
+              onClick={(e) => {
+                e.preventDefault();
+                setIsEdit(true);
+              }}
+              size="large"
+            >
+              <EditIcon className={classes.editBtn} />
+            </Button>
+          </div>
+        ))}
       <div className={classes.detail}>
         <Typography variant="body2" color="textSecondary">
           {post.tags.map((tag) => `#${tag} `)}
@@ -92,12 +93,13 @@ const Post = ({ post }) => {
           )}
           Like
         </Button>
-        {user?.result?._id === post.creator && (
-          <Button size="small" color="primary" onClick={deletePost}>
-            <DeleteIcon fontSize="small" />
-            Delete
-          </Button>
-        )}
+        {user?.result?._id === post.creator ||
+          (user?.result?.sub === post?.creator && (
+            <Button size="small" color="primary" onClick={deletePost}>
+              <DeleteIcon fontSize="small" />
+              Delete
+            </Button>
+          ))}
       </CardActions>
     </Card>
   );

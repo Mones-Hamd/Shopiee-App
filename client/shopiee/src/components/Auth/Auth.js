@@ -15,6 +15,8 @@ import { AuthContext } from '../../context/Auth';
 import { useNavigate } from 'react-router';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Link } from 'react-router-dom';
+import { GoogleLogin } from '@react-oauth/google';
+import jwtDecode from 'jwt-decode';
 const initialFormData = {
   firstName: '',
   lastName: '',
@@ -29,6 +31,21 @@ const Auth = () => {
   const [formData, setFormData] = useState(initialFormData);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const onSuccess = async (credentialResponse) => {
+    const decodedToken = await jwtDecode(credentialResponse.credential);
+
+    localStorage.setItem(
+      'profile',
+      JSON.stringify({
+        result: decodedToken,
+        token: credentialResponse.credential,
+      }),
+    );
+    navigate('/');
+  };
+  const onError = () => {
+    setIsAuth(false);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSignUp) {
@@ -119,6 +136,7 @@ const Auth = () => {
           >
             {isSignUp ? 'Sign Up' : 'Sign In'}
           </Button>
+          <GoogleLogin onSuccess={onSuccess} onError={onError} />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
