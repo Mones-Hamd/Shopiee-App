@@ -4,8 +4,9 @@ export const FetchContext = createContext();
 export const FetchProvider = ({ children }) => {
   const [err, setErr] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const token = JSON.parse(localStorage.getItem('profile'))?.token;
+
   const FetchPosts = async (url, data, method) => {
+    const token = await JSON.parse(localStorage.getItem('profile')).token;
     let requestOpt = {};
     data
       ? (requestOpt = {
