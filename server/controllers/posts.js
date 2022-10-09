@@ -47,3 +47,22 @@ export const deletePost = async (req, res) => {
   await PostItem.findByIdAndRemove(id);
   res.json({ message: 'post deleted successfully' });
 };
+export const likePost = async (req, res) => {
+  const { id } = req.params;
+  if (!req.userId) res.json({ message: 'Unauthnticated' });
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with that ${id}`);
+  const post = await PostItem.findById(id);
+  const isLiked = await post.likes.findIndex((id) => id === String(req.userId));
+
+  if (isLiked === -1) {
+    await post.likes.push(req.userId);
+  } else {
+    post.likes = await post.likes.filter((id) => id !== String(req.userId));
+  }
+  const updatedPost = await PostItem.findByIdAndUpdate(id, post, {
+    new: true,
+  });
+
+  res.status(200).json(updatedPost);
+};
