@@ -10,6 +10,7 @@ const Posts = () => {
     data: posts,
     err,
     isLoading,
+    setRender,
   } = useFetch('http://localhost:5000/api/posts');
 
   return isLoading ? (
@@ -23,7 +24,7 @@ const Posts = () => {
     >
       {posts.map((post) => (
         <Grid key={post._id} item xs={12} sm={6}>
-          <Post post={post} />
+          <Post post={post} setRender={setRender} />
         </Grid>
       ))}
       {err && (

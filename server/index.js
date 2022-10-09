@@ -20,7 +20,7 @@ const main = async () => {
   try {
     await connectDb();
     await app.listen(PORT, () => {
-      console.log(`server is running on port 5000`);
+      console.log(`server is running on port ${PORT}`);
     });
   } catch (err) {
     throw err;

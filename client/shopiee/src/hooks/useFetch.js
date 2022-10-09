@@ -3,7 +3,7 @@ export const useFetch = (url) => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [err, setErr] = useState('');
-
+  const [render, setRender] = useState(false);
   useEffect(() => {
     (async () => {
       try {
@@ -16,7 +16,7 @@ export const useFetch = (url) => {
         setIsLoading(false);
       }
     })();
-  }, [data]);
+  }, [render]);
 
-  return { data, isLoading, err };
+  return { data, isLoading, err, setRender };
 };
