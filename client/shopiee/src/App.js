@@ -6,22 +6,26 @@ import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
 import { FetchProvider } from './context/fetchCtx';
 import { AuthProvider } from './context/Auth';
+import { GoogleOAuthProvider } from '@react-oauth/google';
+
 function App() {
   return (
     <>
-      <Router>
-        <AuthProvider>
-          <FetchProvider>
-            <Container maxWidth="xl">
-              <Navbar />
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/auth" element={<Auth />} />
-              </Routes>
-            </Container>
-          </FetchProvider>
-        </AuthProvider>
-      </Router>
+      <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENTID}>
+        <Router>
+          <AuthProvider>
+            <FetchProvider>
+              <Container maxWidth="xl">
+                <Navbar />
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/auth" element={<Auth />} />
+                </Routes>
+              </Container>
+            </FetchProvider>
+          </AuthProvider>
+        </Router>
+      </GoogleOAuthProvider>
     </>
   );
 }
