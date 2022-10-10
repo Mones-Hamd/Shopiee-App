@@ -40,7 +40,7 @@ const Post = ({ post, setRender }) => {
     );
     setRender((prev) => !prev);
   };
-  console.log(user?.result?._id === post.creator);
+
   return isEdit ? (
     <>
       <EditPost setIsEdit={setIsEdit} post={post} setRender={setRender} />
