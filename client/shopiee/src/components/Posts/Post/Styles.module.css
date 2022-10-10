@@ -1,5 +1,5 @@
 .media {
-  height: 0;
+  height: 20%;
   padding-top: 56.25%;
   background-color: rgba(0, 0, 0, 0.5);
   background-blend-mode: 'darken';
@@ -13,13 +13,13 @@
 }
 .card {
   margin-top:10px;
-  width: 70%;
+  width: 95%;
   padding: 10px;
   display: 'flex';
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   border-radius: 10px;
-  height: 93%;
+ 
   position: relative;
 }
 .overlay {
@@ -45,7 +45,8 @@
   gap :10px;
 }
 .title {
-  padding:  16px
+  margin-top: -30px;
+  padding: 15px
 }
 .cardActions {
   padding:0 16px 8px 16px;

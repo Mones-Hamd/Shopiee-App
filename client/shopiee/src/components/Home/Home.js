@@ -2,10 +2,16 @@ import React from 'react';
 import { Grid, Grow, Container } from '@mui/material';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
+import Search from './Searchbar/Search';
+import classes from './Styles.module.css';
+
 const Home = () => {
   return (
     <Grow in>
       <Container maxWidth="xl">
+        <div className={classes.secondBar}>
+          <Search />
+        </div>
         <Grid
           container
           justifyContent="space-between"

@@ -10,6 +10,7 @@ export const PostProvider = ({ children }) => {
       const response = await fetch(url);
       const result = await response.json();
       setPosts(result);
+      console.log(url);
     } catch (error) {
       setErr(error.message);
     } finally {
