@@ -12,14 +12,12 @@ import classes from './Styles.module.css';
 import React, { useContext, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { FetchContext } from '../../../../context/fetchCtx';
-
-const Form = ({ post, setIsEdit }) => {
+import useFrom from '../../../../hooks/useForm';
+const Edit = ({ post, setIsEdit, setRender }) => {
   const { err, isLoading, FetchPosts } = useContext(FetchContext);
 
-  const [postData, setPostData] = useState(post);
   const user = JSON.parse(localStorage.getItem('profile'));
-  const HandleSubmit = (e) => {
-    e.preventDefault();
+  const submit = (e) => {
     FetchPosts(
       `http://localhost:5000/api/posts/${post._id}`,
       { ...postData, name: user?.result?.name },
@@ -27,20 +25,27 @@ const Form = ({ post, setIsEdit }) => {
     );
 
     clear();
+    setRender((prev) => !prev);
   };
+  const [postData, handleChange, handleSubmit, setState] = useFrom(
+    submit,
+    post,
+  );
+
   const clear = () => {
     setIsEdit(false);
+    handleChange();
   };
   return (
     <Paper className={classes.paper}>
       <form
         autoComplete="off"
         noValidate
-        onSubmit={HandleSubmit}
+        onSubmit={handleSubmit}
         className={classes.form}
       >
         <CardMedia
-          image={postData.selectedFile}
+          image={post.selectedFile}
           title={postData.title}
           className={classes.media}
         />
@@ -51,9 +56,7 @@ const Form = ({ post, setIsEdit }) => {
             label="Edit item Title"
             fullWidth
             value={postData.title}
-            onChange={(e) =>
-              setPostData({ ...postData, title: e.target.value })
-            }
+            onChange={handleChange}
           />
           <TextField
             name="description"
@@ -63,9 +66,7 @@ const Form = ({ post, setIsEdit }) => {
             rows={4}
             fullWidth
             value={postData.description}
-            onChange={(e) =>
-              setPostData({ ...postData, description: e.target.value })
-            }
+            onChange={handleChange}
           />
           <TextField
             name="price"
@@ -73,9 +74,7 @@ const Form = ({ post, setIsEdit }) => {
             label="Edit item Price"
             fullWidth
             value={postData.price}
-            onChange={(e) =>
-              setPostData({ ...postData, price: e.target.value })
-            }
+            onChange={handleChange}
           />
           <TextField
             name="contact"
@@ -83,9 +82,7 @@ const Form = ({ post, setIsEdit }) => {
             label="Edit your Contact"
             fullWidth
             value={postData.contact}
-            onChange={(e) =>
-              setPostData({ ...postData, contact: e.target.value })
-            }
+            onChange={handleChange}
           />
           <TextField
             name="tags"
@@ -93,7 +90,7 @@ const Form = ({ post, setIsEdit }) => {
             label="Edit item Tags"
             fullWidth
             value={postData.tags}
-            onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+            onChange={handleChange}
           />
         </div>
         <div>
@@ -103,7 +100,7 @@ const Form = ({ post, setIsEdit }) => {
             multiple={false}
             className={classes.fileInput}
             onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
+              setState({ ...postData, selectedFile: base64 })
             }
           />
         </div>
@@ -130,4 +127,4 @@ const Form = ({ post, setIsEdit }) => {
   );
 };
 
-export default Form;
+export default Edit;

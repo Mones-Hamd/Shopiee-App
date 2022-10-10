@@ -10,22 +10,13 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import classes from './Styles.module.css';
 import FileBase from 'react-file-base64';
-
+import useFrom from '../../hooks/useForm';
 import { FetchContext } from '../../context/fetchCtx';
 const Form = () => {
   const { err, isLoading, FetchPosts } = useContext(FetchContext);
 
-  const [postData, setPostData] = useState({
-    title: '',
-    description: '',
-    price: 0,
-    contact: '',
-    tags: [],
-    selectedFile: '',
-  });
   const user = JSON.parse(localStorage.getItem('profile'));
-  const HandleSubmit = (e) => {
-    e.preventDefault();
+  const submit = (e) => {
     FetchPosts(
       `http://localhost:5000/api/posts`,
       { ...postData, name: user?.result?.name },
@@ -33,16 +24,10 @@ const Form = () => {
     );
     clear();
   };
+  const [postData, handleChange, handleSubmit, setState] = useFrom(submit, {});
 
   const clear = () => {
-    setPostData({
-      title: '',
-      description: '',
-      price: 0,
-      contact: '',
-      tags: [],
-      selectedFile: '',
-    });
+    handleChange();
   };
   if (!user?.result?.name) {
     return (
@@ -58,7 +43,7 @@ const Form = () => {
       <form
         autoComplete="off"
         noValidate
-        onSubmit={HandleSubmit}
+        onSubmit={handleSubmit}
         className={classes.form}
       >
         <Typography variant="h6">
@@ -69,8 +54,8 @@ const Form = () => {
           variant="outlined"
           label="Title"
           fullWidth
-          value={postData.title}
-          onChange={(e) => setPostData({ ...postData, title: e.target.value })}
+          value={postData.title || ''}
+          onChange={handleChange}
         />
         <TextField
           name="description"
@@ -79,36 +64,32 @@ const Form = () => {
           multiline
           rows={4}
           fullWidth
-          value={postData.description}
-          onChange={(e) =>
-            setPostData({ ...postData, description: e.target.value })
-          }
+          value={postData.description || ''}
+          onChange={handleChange}
         />
         <TextField
           name="price"
           variant="outlined"
           label="Price"
           fullWidth
-          value={postData.price}
-          onChange={(e) => setPostData({ ...postData, price: e.target.value })}
+          value={postData.price || ''}
+          onChange={handleChange}
         />
         <TextField
           name="contact"
           variant="outlined"
           label="Contact"
           fullWidth
-          value={postData.contact}
-          onChange={(e) =>
-            setPostData({ ...postData, contact: e.target.value })
-          }
+          value={postData.contact || ''}
+          onChange={handleChange}
         />
         <TextField
           name="tags"
           variant="outlined"
           label="Tags"
           fullWidth
-          value={postData.tags}
-          onChange={(e) => setPostData({ ...postData, tags: e.target.value })}
+          value={postData.tags || ''}
+          onChange={handleChange}
         />
         <div>
           <FileBase
@@ -117,7 +98,7 @@ const Form = () => {
             multiple={false}
             className={classes.fileInput}
             onDone={({ base64 }) =>
-              setPostData({ ...postData, selectedFile: base64 })
+              setState({ ...postData, selectedFile: base64 })
             }
           />
         </div>

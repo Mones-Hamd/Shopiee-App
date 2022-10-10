@@ -43,7 +43,7 @@ const Post = ({ post, setRender }) => {
   console.log(user?.result?._id === post.creator);
   return isEdit ? (
     <>
-      <EditPost setIsEdit={setIsEdit} post={post} />
+      <EditPost setIsEdit={setIsEdit} post={post} setRender={setRender} />
     </>
   ) : (
     <Card className={classes.card}>
