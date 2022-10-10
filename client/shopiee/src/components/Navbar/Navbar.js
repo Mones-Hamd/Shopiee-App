@@ -5,6 +5,7 @@ import logo from '../../imgs/logo.png';
 import { Link } from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useLocation, useNavigate } from 'react-router';
+
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
