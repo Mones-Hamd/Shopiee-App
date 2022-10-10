@@ -13,6 +13,7 @@ import React, { useContext, useState } from 'react';
 import FileBase from 'react-file-base64';
 import { FetchContext } from '../../../../context/fetchCtx';
 import useFrom from '../../../../hooks/useForm';
+
 const Edit = ({ post, setIsEdit, setRender }) => {
   const { err, isLoading, FetchPosts } = useContext(FetchContext);
 

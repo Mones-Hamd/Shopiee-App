@@ -12,17 +12,18 @@ import classes from './Styles.module.css';
 import FileBase from 'react-file-base64';
 import useFrom from '../../hooks/useForm';
 import { FetchContext } from '../../context/fetchCtx';
-const Form = () => {
+const Form = ({ setRender }) => {
   const { err, isLoading, FetchPosts } = useContext(FetchContext);
 
   const user = JSON.parse(localStorage.getItem('profile'));
-  const submit = (e) => {
-    FetchPosts(
+  const submit = async (e) => {
+    await FetchPosts(
       `http://localhost:5000/api/posts`,
       { ...postData, name: user?.result?.name },
       'post',
     );
     clear();
+    setRender((prev) => !prev);
   };
   const [postData, handleChange, handleSubmit, setState] = useFrom(submit, {});
 

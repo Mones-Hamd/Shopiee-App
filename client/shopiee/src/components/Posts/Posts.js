@@ -5,13 +5,9 @@ import Post from './Post/Post';
 import classes from './Styles.module.css';
 import { PostsContext } from '../../context/PostsCtx';
 
-const Posts = () => {
-  const [render, setRender] = useState(false);
-  const { posts, err, isLoading, getPosts } = useContext(PostsContext);
-  useEffect(() => {
-    getPosts(`http://localhost:5000/api/posts`);
-  }, [render]);
-
+const Posts = ({ setRender }) => {
+  const { posts, err, isLoading } = useContext(PostsContext);
+  console.log(posts);
   return isLoading ? (
     <CircularProgress />
   ) : (

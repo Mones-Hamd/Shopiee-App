@@ -15,3 +15,12 @@
 .searchBtn{
   width: 20%;
 }
+@media (max-width:600px) {
+.searchBar{
+    flex-direction: column !important;
+  }
+  .secondBar{
+    flex-direction: column !important;
+  }
+  
+}
