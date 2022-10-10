@@ -15,6 +15,7 @@ import EditPost from './EditPost/EditPost';
 import { FetchContext } from '../../../context/fetchCtx';
 import PersonOffRoundedIcon from '@mui/icons-material/PersonOffRounded';
 import Favorite from './Favourite';
+
 const Post = ({ post, setRender }) => {
   const { FetchPosts } = useContext(FetchContext);
   const [isEdit, setIsEdit] = useState();

@@ -1,28 +1,36 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { Grid, Grow, Container } from '@mui/material';
 import Posts from '../Posts/Posts';
 import Form from '../Form/Form';
 import Search from './Searchbar/Search';
 import classes from './Styles.module.css';
+import Paginate from '../Pagination';
+
+import { PostsContext } from '../../context/PostsCtx';
 
 const Home = () => {
+  const { err, isLoading, posts } = useContext(PostsContext);
+  const [render, setRender] = useState(true);
+
   return (
     <Grow in>
       <Container maxWidth="xl">
         <div className={classes.secondBar}>
           <Search />
+          <Paginate render={render} />
         </div>
         <Grid
           container
           justifyContent="space-between"
           alignItems="stretch"
           spacing={3}
+          className={classes.container}
         >
           <Grid item={true} xs={12} sm={6} md={9}>
-            <Posts />
+            <Posts posts={posts} setRender={setRender} />
           </Grid>
           <Grid item={true} xs={12} sm={6} md={3}>
-            <Form />
+            <Form setRender={setRender} />
           </Grid>
         </Grid>
       </Container>
@@ -31,7 +39,3 @@ const Home = () => {
 };
 
 export default Home;
-// <Search />
-//            <Paper elevation={6}>
-//<Pagination className={classes.pagination} />
-//</Paper>
