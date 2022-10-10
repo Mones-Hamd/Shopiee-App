@@ -7,7 +7,7 @@ import Auth from './components/Auth/Auth';
 import { FetchProvider } from './context/fetchCtx';
 import { AuthProvider } from './context/Auth';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-
+import { PostProvider } from './context/PostsCtx';
 function App() {
   return (
     <>
@@ -15,13 +15,15 @@ function App() {
         <Router>
           <AuthProvider>
             <FetchProvider>
-              <Container maxWidth="xl">
-                <Navbar />
-                <Routes>
-                  <Route path="/" element={<Home />} />
-                  <Route path="/auth" element={<Auth />} />
-                </Routes>
-              </Container>
+              <PostProvider>
+                <Container maxWidth="xl">
+                  <Navbar />
+                  <Routes>
+                    <Route path="/" element={<Home />} />
+                    <Route path="/auth" element={<Auth />} />
+                  </Routes>
+                </Container>
+              </PostProvider>
             </FetchProvider>
           </AuthProvider>
         </Router>

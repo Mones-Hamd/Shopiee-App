@@ -17,18 +17,13 @@ import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import { Link } from 'react-router-dom';
 import { GoogleLogin } from '@react-oauth/google';
 import jwtDecode from 'jwt-decode';
-const initialFormData = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  password: '',
-  confirmPassword: '',
-};
+import useFrom from '../../hooks/useForm';
+
 const Auth = () => {
   const [isAuth, setIsAuth] = useState(true);
   const navigate = useNavigate();
   const { sign, err, isLoading } = useContext(AuthContext);
-  const [formData, setFormData] = useState(initialFormData);
+
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const onSuccess = async (credentialResponse) => {
@@ -66,10 +61,8 @@ const Auth = () => {
       }
     }
   };
+  const [formData, handleChange] = useFrom();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
   const handleShowPassword = () => {
     setShowPassword((prevShowPassword) => !prevShowPassword);
   };
