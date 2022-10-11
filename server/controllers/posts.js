@@ -97,3 +97,20 @@ export const getPost = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const commentOnPost = async (req, res) => {
+  const { id } = req.params;
+
+  const comment = req.body;
+
+  if (!req.userId) res.json({ message: 'Unauthnticated' });
+  if (!mongoose.Types.ObjectId.isValid(id))
+    return res.status(404).send(`No post with that ${id}`);
+  const post = await PostItem.findById(id);
+  await post.comments.push(comment.userComment);
+  const updatedPost = await PostItem.findByIdAndUpdate(id, post, {
+    new: true,
+  });
+
+  res.status(200).json(updatedPost);
+};
