@@ -19,7 +19,9 @@ const Search = () => {
         searchTitle || 'none'
       }&tags=${tags.join(',')}`;
       await getPosts(url);
-      navigate(`/search?search=${searchTitle || 'none'}&tag=${tags.join(',')}`);
+      navigate(
+        `/items/search?search=${searchTitle || 'none'}&tag=${tags.join(',')}`,
+      );
     } else {
       navigate('/');
     }

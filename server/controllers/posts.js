@@ -3,23 +3,18 @@ import PostItem from '../models/PostItem.js';
 export const getPosts = async (req, res) => {
   const { page } = req.query;
   try {
-    if (req.params.id) {
-      const postItem = await PostItem.findById(req.params.id);
-      res.status(200).json(postItem);
-    } else {
-      const LIMIT = 8;
-      const startIndex = (Number(page) - 1) * LIMIT;
-      const total = await PostItem.countDocuments({});
-      const posts = await PostItem.find()
-        .sort({ _id: -1 })
-        .limit(LIMIT)
-        .skip(startIndex);
-      res.status(200).json({
-        data: posts,
-        currentPage: Number(page),
-        numberOfPages: Math.ceil(total / LIMIT),
-      });
-    }
+    const LIMIT = 8;
+    const startIndex = (Number(page) - 1) * LIMIT;
+    const total = await PostItem.countDocuments({});
+    const posts = await PostItem.find()
+      .sort({ _id: -1 })
+      .limit(LIMIT)
+      .skip(startIndex);
+    res.status(200).json({
+      data: posts,
+      currentPage: Number(page),
+      numberOfPages: Math.ceil(total / LIMIT),
+    });
   } catch (err) {
     res.status(404).json({ msg: err.msg });
   }
@@ -87,6 +82,17 @@ export const getPostsBySearch = async (req, res) => {
     });
 
     res.json({ data: posts });
+  } catch (error) {
+    res.status(404).json({ message: error.message });
+  }
+};
+export const getPost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await PostItem.findById(id);
+
+    res.status(200).json({ data: [post] });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
