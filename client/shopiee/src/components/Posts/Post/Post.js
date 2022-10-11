@@ -16,11 +16,9 @@ import EditPost from './EditPost/EditPost';
 import { FetchContext } from '../../../context/fetchCtx';
 import PersonOffRoundedIcon from '@mui/icons-material/PersonOffRounded';
 import Favorite from './Favourite';
-import { useNavigate } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const Post = ({ post, setRender }) => {
-  const navigate = useNavigate();
   const { FetchPosts } = useContext(FetchContext);
   const [isEdit, setIsEdit] = useState();
   useEffect(() => {

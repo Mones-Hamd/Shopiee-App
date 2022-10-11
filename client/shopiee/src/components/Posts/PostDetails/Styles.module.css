@@ -32,3 +32,36 @@
   border-radius: 10px;
   height: 39vh;
 }
+.recommendedCard{
+  margin-top:10px;
+  max-width: 59%;
+
+  padding: 10px;
+  display: 'flex';
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 10px;
+}
+.recommendedMedia {
+  max-width: 80%;
+   background-color: rgba(0, 0, 0, 0.5);
+   background-blend-mode: 'darken';
+   border-radius: 10px 10px 0 0 ;
+ }
+
+ .Rtitle {
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+justify-content: space-around;
+  padding: 15px
+}
+.actions{
+  display: flex;
+  justify-content: flex-end;
+  align-self: flex-end;
+}
+.link{
+  text-decoration: none;
+  color: black;
+}

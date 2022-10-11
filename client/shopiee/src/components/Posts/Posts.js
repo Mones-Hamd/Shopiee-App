@@ -7,7 +7,6 @@ import { PostsContext } from '../../context/PostsCtx';
 
 const Posts = ({ setRender }) => {
   const { posts, err, isLoading } = useContext(PostsContext);
-  console.log(isLoading);
   return isLoading ? (
     <CircularProgress />
   ) : (

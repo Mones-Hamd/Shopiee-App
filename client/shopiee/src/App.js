@@ -14,7 +14,7 @@ import { AuthProvider } from './context/Auth';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { PostProvider } from './context/PostsCtx';
 import PostDetails from './components/Posts/PostDetails/PostDetails';
-
+import { RecomendedPostProvider } from './context/RecommendedCtx';
 function App() {
   return (
     <>
@@ -23,16 +23,18 @@ function App() {
           <AuthProvider>
             <FetchProvider>
               <PostProvider>
-                <Container maxWidth="xl">
-                  <Navbar />
-                  <Routes>
-                    <Route path="/" element={<Navigate to="/items" />} />
-                    <Route path="/items" element={<Home />} />
-                    <Route path="items/:id" element={<PostDetails />} />
-                    <Route path="items/search" element={<Home />} />
-                    <Route path="/auth" element={<Auth />} />
-                  </Routes>
-                </Container>
+                <RecomendedPostProvider>
+                  <Container maxWidth="xl">
+                    <Navbar />
+                    <Routes>
+                      <Route path="/" element={<Navigate to="/items" />} />
+                      <Route path="/items" element={<Home />} />
+                      <Route path="items/:id" element={<PostDetails />} />
+                      <Route path="items/search" element={<Home />} />
+                      <Route path="/auth" element={<Auth />} />
+                    </Routes>
+                  </Container>
+                </RecomendedPostProvider>
               </PostProvider>
             </FetchProvider>
           </AuthProvider>
