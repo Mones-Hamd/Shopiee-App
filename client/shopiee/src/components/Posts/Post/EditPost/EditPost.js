@@ -24,9 +24,8 @@ const Edit = ({ post, setIsEdit, setRender }) => {
       { ...postData, name: user?.result?.name },
       'put',
     );
-
-    clear();
     setRender((prev) => !prev);
+    clear();
   };
   const [postData, handleChange, handleSubmit, setState] = useFrom(
     submit,

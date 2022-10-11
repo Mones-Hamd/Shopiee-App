@@ -8,23 +8,27 @@ export const FetchProvider = ({ children }) => {
   const FetchPosts = async (url, data, method) => {
     const token = await JSON.parse(localStorage.getItem('profile')).token;
     let requestOpt = {};
-    data
-      ? (requestOpt = {
-          method,
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        })
-      : (requestOpt = {
-          method,
 
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: `bearer ${token}`,
-          },
-        });
+    if (data) {
+      requestOpt = {
+        method,
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${token}`,
+        },
+        body: JSON.stringify(data),
+      };
+    } else {
+      requestOpt = {
+        method,
+
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `bearer ${token}`,
+        },
+      };
+    }
+    console.log(requestOpt);
     try {
       setIsLoading(true);
       const response = await fetch(url, requestOpt);

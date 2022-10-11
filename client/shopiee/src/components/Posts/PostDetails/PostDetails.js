@@ -9,6 +9,7 @@ import AspectRatio from '@mui/joy/AspectRatio';
 import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import Comments from './Comments/Comments';
 
 const PostDetails = () => {
   const { id } = useParams();
@@ -71,9 +72,7 @@ const PostDetails = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Typography variant="body1">
-            <strong>Comments - coming soon!</strong>
-          </Typography>
+          <Comments post={post[0]} />
 
           <Divider style={{ margin: '20px 0' }} />
         </div>
