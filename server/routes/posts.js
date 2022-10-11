@@ -18,5 +18,5 @@ router.post('/api/posts', auth, createPost);
 router.put('/api/posts/:id', auth, updatePost);
 router.delete('/api/posts/:id', auth, deletePost);
 router.put('/api/posts/:id/likes', auth, likePost);
-router.put('/api/posts/:id/comments', auth, commentOnPost);
+router.put('/api/comments/:id', auth, commentOnPost);
 export default router;
