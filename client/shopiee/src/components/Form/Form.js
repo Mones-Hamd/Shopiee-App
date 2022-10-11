@@ -72,6 +72,7 @@ const Form = ({ setRender }) => {
           name="price"
           variant="outlined"
           label="Price"
+          type="number"
           fullWidth
           value={postData.price || ''}
           onChange={handleChange}

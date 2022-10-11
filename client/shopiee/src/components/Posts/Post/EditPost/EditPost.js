@@ -73,6 +73,7 @@ const Edit = ({ post, setIsEdit, setRender }) => {
             name="price"
             variant="outlined"
             label="Edit item Price"
+            type="number"
             fullWidth
             value={postData.price}
             onChange={handleChange}
