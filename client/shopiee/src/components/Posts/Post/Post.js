@@ -1,5 +1,6 @@
 import {
   Button,
+  ButtonBase,
   Card,
   CardActions,
   CardContent,
@@ -15,8 +16,11 @@ import EditPost from './EditPost/EditPost';
 import { FetchContext } from '../../../context/fetchCtx';
 import PersonOffRoundedIcon from '@mui/icons-material/PersonOffRounded';
 import Favorite from './Favourite';
+import { useNavigate } from 'react-router';
+import { Link } from 'react-router-dom';
 
 const Post = ({ post, setRender }) => {
+  const navigate = useNavigate();
   const { FetchPosts } = useContext(FetchContext);
   const [isEdit, setIsEdit] = useState();
   useEffect(() => {
@@ -48,17 +52,19 @@ const Post = ({ post, setRender }) => {
     </>
   ) : (
     <Card className={classes.card}>
-      <CardMedia
-        image={post.selectedFile}
-        title={post.title}
-        className={classes.media}
-      />
-      <div className={classes.overlay}>
-        <Typography variant="h6">{post.name}</Typography>
-        <Typography variant="body2">
-          {moment(post.createdAt).fromNow()}
-        </Typography>
-      </div>
+      <Link to={`/items/${post._id}`} className={classes.link}>
+        <CardMedia
+          image={post.selectedFile}
+          title={post.title}
+          className={classes.media}
+        />
+        <div className={classes.overlay}>
+          <Typography variant="h6">{post.name}</Typography>
+          <Typography variant="body2">
+            {moment(post.createdAt).fromNow()}
+          </Typography>
+        </div>
+      </Link>
       {(user?.result?._id || user?.result?.sub) === post.creator && (
         <div className={classes.overlay2}>
           <Button
@@ -72,26 +78,27 @@ const Post = ({ post, setRender }) => {
           </Button>
         </div>
       )}
-      <div className={classes.detail}>
-        <Typography variant="body2" color="textSecondary">
-          {post.tags.map((tag) => `#${tag} `)}
-        </Typography>
-      </div>
-      <div className={classes.title}>
-        <CardContent className={classes.editFeild}>
-          <Typography variant="h6" gutterBottom>
-            {post.title}
-          </Typography>
+      <Link to={`/items/${post._id}`} className={classes.link}>
+        <div className={classes.detail}>
           <Typography variant="body2" color="textSecondary">
-            {post.description}
+            {post.tags.map((tag) => `#${tag} `)}
           </Typography>
-          <Typography variant="overline">Price: {post.price} €</Typography>
-          <Typography variant="subtitle2" gutterBottom>
-            Reach me :{post.contact}
-          </Typography>
-        </CardContent>
-      </div>
-
+        </div>
+        <div className={classes.title}>
+          <CardContent className={classes.editFeild}>
+            <Typography variant="h6" gutterBottom>
+              {post.title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary">
+              {post.description}
+            </Typography>
+            <Typography variant="overline">Price: {post.price} €</Typography>
+            <Typography variant="subtitle2" gutterBottom>
+              Reach me :{post.contact}
+            </Typography>
+          </CardContent>
+        </div>
+      </Link>
       <CardActions className={classes.cardActions}>
         <Button
           size="small"

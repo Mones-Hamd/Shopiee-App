@@ -2,11 +2,12 @@ import React from 'react';
 import { useState, createContext } from 'react';
 export const PostsContext = createContext();
 export const PostProvider = ({ children }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const [posts, setPosts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [numberOfPages, setNumberOfPages] = useState(10);
   const [err, setErr] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
+
   const getPosts = async (url) => {
     try {
       const response = await fetch(url);
@@ -14,7 +15,6 @@ export const PostProvider = ({ children }) => {
       setPosts(result.data);
       setCurrentPage(result.currentPage);
       setNumberOfPages(result.numberOfPages);
-      console.log(result);
     } catch (error) {
       setErr(error.message);
     } finally {
