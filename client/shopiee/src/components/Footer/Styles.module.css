@@ -1,0 +1,21 @@
+.footerContainer {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 5px;
+}
+
+a{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  align-items: center;
+  margin: 10px;
+}
+.side {
+  margin:20px;
+}
+.right{
+  padding: 10px;
+}

@@ -15,6 +15,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { PostProvider } from './context/PostsCtx';
 import PostDetails from './components/Posts/PostDetails/PostDetails';
 import { RecomendedPostProvider } from './context/RecommendedCtx';
+import Footer from './components/Footer/Footer';
 function App() {
   return (
     <>
@@ -33,6 +34,7 @@ function App() {
                       <Route path="items/search" element={<Home />} />
                       <Route path="/auth" element={<Auth />} />
                     </Routes>
+                    <Footer />
                   </Container>
                 </RecomendedPostProvider>
               </PostProvider>
