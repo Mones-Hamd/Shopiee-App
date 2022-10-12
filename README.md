@@ -31,30 +31,30 @@ Open http://localhost:3000 to view it in the browser.
 
 
 ## Must have:
-- [x] ability to sign in and sign up using google account "Oauth 2" and for sure custom sign in/sign up "jwt, bcrybt".
+- [x] Ability to sign in and sign up using google account "Oauth 2" and for sure custom sign in/sign up "jwt, bcrybt".
 
-2- user can post his/her item that he needs to sell and add a item photo , and add tags .
+- [x] User can post his/her item that he needs to sell and add a item photo , and add tags .
 
-3- Like his items and other's item .
+- [x] Like his items and other's item .
 
-3-edit and delete his item.
+- [x] Edit and delete his item.
 
-4-search by tags or title .
+- [x] Search by tags or title .
 
-5-show single item with recommended items .
+- [x] Show single item with recommended items .
 
-6-pagination .
+- [x] pagination .
 
 ## Roadmap
-- Add recommended items
+- [x] Add recommended items
 
-- Add comments 
+- [x] Add comments 
 
-- Realtime Chat
+- [ ] Realtime Chat
 
-- Add user profile 
+- [ ] Add user profile 
 
-- Add payment method 
+- [ ] Add payment method 
 
 
 
