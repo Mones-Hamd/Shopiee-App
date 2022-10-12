@@ -31,7 +31,7 @@ Open http://localhost:3000 to view it in the browser.
 
 
 ## Must have:
-1- ability to sign in and sign up using google account "Oauth 2" and for sure custom sign in/sign up "jwt, bcrybt".
+- [x] ability to sign in and sign up using google account "Oauth 2" and for sure custom sign in/sign up "jwt, bcrybt".
 
 2- user can post his/her item that he needs to sell and add a item photo , and add tags .
 
