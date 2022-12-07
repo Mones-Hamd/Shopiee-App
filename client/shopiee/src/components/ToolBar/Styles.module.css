@@ -1,0 +1,20 @@
+.appBar {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+  min-height: 12vh;
+  background-color: rgb(207, 213, 239);
+}
+@media (max-width: 900px) {
+  .appBar {
+    display: flex;
+    flex-direction: column-reverse !important;
+    min-height: 20vh;
+    align-items: flex-start;
+  }
+  .search {
+    min-width: 100%;
+  }
+}

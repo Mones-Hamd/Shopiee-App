@@ -1,0 +1,23 @@
+.sortBar {
+  display: flex;
+  min-width: 20%;
+  align-items: center;
+  gap: 10px;
+  margin-left: 1.3em;
+}
+@media (max-width: 900px) {
+  .sortBar {
+    margin-right: 0.5em;
+    margin-bottom: 0.5em;
+    align-self: flex-end;
+  }
+}
+@media (max-width: 550px) {
+  .sortBar {
+    min-width: 38%;
+    font-size: smaller;
+    align-self: start;
+    margin-top: 2em;
+    margin-left: 0.5em;
+  }
+}

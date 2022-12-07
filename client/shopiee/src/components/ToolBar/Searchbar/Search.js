@@ -1,18 +1,16 @@
 import React, { useContext, useState } from 'react';
 import Chip from '@mui/material/Chip';
 import Stack from '@mui/material/Stack';
-import { AppBar, TextField, Button } from '@mui/material';
+import { TextField, Button } from '@mui/material';
 import classes from './Styles.module.css';
 import { PostsContext } from '../../../context/PostsCtx';
 import { useNavigate } from 'react-router';
-import { useLocation } from 'react-router';
-
+import { AiOutlineSearch } from 'react-icons/ai';
 const Search = () => {
   const navigate = useNavigate();
   const { getPosts } = useContext(PostsContext);
   const [tags, setTags] = useState([]);
   const [searchTitle, setSearchTitle] = useState('');
-
   const searchPosts = async () => {
     if (searchTitle.trim() || tags) {
       const url = `http://localhost:5000/api/search?searchQuery=${
@@ -31,12 +29,21 @@ const Search = () => {
   const handleKeyPress = (e) => {};
   return (
     <div className={classes.searchBar}>
-      <div>
+      <Stack direction="row" spacing={0} className={classes.chip}>
+        {tags?.map(
+          (tag, indx) =>
+            indx < 3 && (
+              <Chip label={tag} onDelete={() => handleOnDelete(tag)} />
+            ),
+        )}
+      </Stack>
+      <div className={classes.searchContainer}>
         <TextField
           className={classes.searchTitle}
+          size="small"
           name="search"
           variant="outlined"
-          label="search By title"
+          label="Search By Title"
           value={searchTitle}
           onKeyPress={handleKeyPress}
           onChange={(e) => setSearchTitle(e.target.value)}
@@ -44,23 +51,21 @@ const Search = () => {
         <TextField
           className={classes.searchTitle}
           name="search"
+          size="small"
           variant="outlined"
-          label="search By Tags"
+          label="Search By Tags"
           value={tags}
           onChange={(e) => setTags(e.target.value.split(/[" ",]/))}
         />
       </div>
-      <Stack direction="row" spacing={0}>
-        {tags?.map((tag) => (
-          <Chip label={tag} onDelete={() => handleOnDelete(tag)} />
-        ))}
-      </Stack>
+
       <Button
         className={classes.searchBtn}
         onClick={searchPosts}
-        color="primary"
         variant="contained"
+        size="medium"
       >
+        <AiOutlineSearch color="white" />
         Search
       </Button>
     </div>
