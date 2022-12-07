@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { AppBar, Toolbar, Avatar, Typography, Button } from '@mui/material';
+import { Avatar, Typography } from '@mui/material';
 import classes from './Styles.module.css';
 import logo from '../../imgs/logo.png';
 import { Link } from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useLocation, useNavigate } from 'react-router';
-
+import { AiOutlineUser, AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -27,48 +27,74 @@ const Navbar = () => {
   }, [location]);
 
   return (
-    <AppBar className={classes.appBar} position="static" color="inherit">
+    <div className={classes.appBar}>
+      <div className={classes.toolbar1}>
+        <Typography variant="h6">
+          <Link to="/" className={classes.link}>
+            {' '}
+            Home
+          </Link>
+        </Typography>
+        <Typography variant="h6">
+          <Link to="/contact" className={classes.link}>
+            {' '}
+            Contact
+          </Link>
+        </Typography>
+        <Typography variant="h6">
+          <Link to="/support" className={classes.link}>
+            {' '}
+            Support
+          </Link>
+        </Typography>
+        {user && (
+          <Typography variant="h6">
+            <Link to="/post" className={classes.link}>
+              {' '}
+              Post Item
+            </Link>
+          </Typography>
+        )}
+      </div>
       <div className={classes.logo}>
         <Link to="/">
           <img className={classes.image} src={logo} alt="logo" />
         </Link>
       </div>
 
-      <Toolbar className={classes.toolbar}>
+      <div className={classes.toolbar}>
         {user?.result ? (
           <div className={classes.profile}>
-            <Avatar
-              className={classes.purple}
-              alt={user?.result?.name}
-              src={user?.result?.picture}
-            >
-              {user?.result?.name.charAt(0)}
-            </Avatar>
-            <Typography className={classes.userName} variant="h6">
-              {user?.result?.name}
-            </Typography>
-
-            <Button
-              variant="contained"
-              className={classes.logout}
-              color="secondary"
-              onClick={logout}
-            >
+            <div className={classes.userInfo}>
+              <Link to="/profile">
+                <Avatar
+                  className={classes.purple}
+                  alt={user?.result?.name}
+                  src={user?.result?.picture}
+                >
+                  {user?.result?.name.charAt(0)}
+                </Avatar>
+              </Link>
+              <Link to="/profile">
+                <AiOutlineUser color="black" className={classes.icons} />
+                <Typography className={classes.userName} color="black">
+                  {user?.result?.name}
+                </Typography>
+              </Link>
+            </div>
+            <Link to="/auth" className={classes.link} onClick={logout}>
+              <AiOutlineLogout className={classes.icons} color="blue" />
               logout
-            </Button>
+            </Link>
           </div>
         ) : (
-          <Button
-            component={Link}
-            to="/auth"
-            variant="contained"
-            color="primary"
-          >
+          <Link className={classes.signIn} to="/auth">
+            <AiOutlineLogin className={classes.icons} color="blue" />
             Sign In
-          </Button>
+          </Link>
         )}
-      </Toolbar>
-    </AppBar>
+      </div>
+    </div>
   );
 };
 

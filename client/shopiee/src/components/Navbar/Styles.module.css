@@ -1,41 +1,121 @@
-
+.container {
+  min-width: 100%;
+}
+header {
+  min-width: 100%;
+}
 .appBar {
   display: flex;
-  flex-direction: row  !important;
-  border-radius: 5px;
-  margin: 30px 0;
+  flex-direction: row !important;
   justify-content: space-between;
   align-items: center;
-
+  min-width: 100%;
+  max-height: 7vh;
+  border-top: 10px rgb(36, 76, 251) solid;
+  border-bottom: 1px rgb(215, 210, 210) solid;
 }
-.logo{
-  margin-left: 20px;
-  max-width: 20%;
+.logo {
+  max-width: 15%;
   justify-self: start;
   display: flex;
+}
+.icons {
+  margin: 3px;
 }
 .image {
   display: flex;
   width: 90%;
   margin: 20px auto;
 }
-.toolbar {
-  justify-self: end;
+.toolbar1 {
+  justify-self: end !important;
   display: flex;
-  justify-content: flex-end;
-  width: 30%;
+  align-items: center;
+  width: 40%;
+}
+.toolbar {
+  justify-self: end !important;
+  display: flex;
+  align-items: center;
+  width: 40%;
+  justify-content: end;
 }
 .profile {
   display: flex;
-  justify-content: space-between;
-  width: 400px;
+  justify-content: end;
+  width: 100%;
+  align-items: center;
 }
 .userName {
+  align-self: center;
+  font-size: 13px;
+  width: 100%;
   display: flex;
   align-items: center;
 }
 
 .purple {
-
-color: blueviolet;
+  color: blueviolet;
+}
+.link {
+  margin: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(36, 76, 251);
+  transition: 0.5s;
+}
+.link:hover {
+  text-decoration: underline;
+  transform: scale(1.07);
+}
+.userInfo {
+  display: flex;
+  width: 50%;
+  justify-content: flex-end;
+  align-items: center;
+}
+.signIn {
+  justify-self: end;
+  margin: 20px;
+  text-align: center;
+  font-size: 13px;
+  color: rgb(36, 76, 251);
+  transition: 0.5s;
+}
+.signIn:hover {
+  text-decoration: underline;
+  transform: scale(1.07);
+}
+@media (max-width: 947px) {
+  .userInfo {
+    width: 100%;
+  }
+}
+@media (max-width: 800px) {
+  .toolbar1 {
+    display: none;
+  }
+  .toolbar {
+    width: 70%;
+  }
+  .userInfo {
+    max-width: 50%;
+  }
+  .appBar {
+    min-height: 13vh;
+  }
+  .logo {
+    min-width: 30%;
+  }
+}
+@media (max-width: 550px) {
+  .userName {
+    display: none;
+  }
+  .appBar {
+    min-height: 15vh;
+  }
+  .logo {
+    min-width: 35%;
+  }
 }
