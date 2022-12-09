@@ -23,6 +23,10 @@
   font-size: 13px;
   width: 20%;
 }
+.chip {
+  width: 450px;
+  overflow: hidden;
+}
 @media (max-width: 900px) {
   .searchBar {
     margin-top: 2em;

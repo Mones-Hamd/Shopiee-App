@@ -4,9 +4,10 @@ import {
   Routes,
   Route,
   Navigate,
+  Form,
 } from 'react-router-dom';
 import { Container } from '@mui/material';
-import Home from './components/Home/Home';
+import Home from './Pages/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
 import { FetchProvider } from './context/fetchCtx';

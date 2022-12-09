@@ -1,0 +1,19 @@
+.card {
+  width: 21.9%;
+  margin-top: 2.2em;
+  margin-left: 1.5em;
+  padding: 10px;
+  display: 'flex';
+  flex-direction: column;
+  justify-content: space-around;
+  border-radius: 5px;
+
+  align-items: center;
+}
+.media {
+  width: 100%;
+}
+.add {
+  margin: 5px auto;
+  width: 100%;
+}
