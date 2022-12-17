@@ -1,14 +1,26 @@
 import React, { useEffect, useState } from 'react';
-import { Avatar, Typography } from '@mui/material';
+import { Avatar, Typography, IconButton } from '@mui/material';
+import {
+  Box,
+  Divider,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+} from '@mui/material';
+
+import MenuIcon from '@mui/icons-material/Menu';
 import classes from './Styles.module.css';
 import logo from '../../imgs/logo.png';
 import { Link } from 'react-router-dom';
 import decode from 'jwt-decode';
 import { useLocation, useNavigate } from 'react-router';
+import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineUser, AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
 const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [active, setActive] = useState(false);
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
   const logout = async () => {
     setUser(null);
@@ -28,6 +40,57 @@ const Navbar = () => {
 
   return (
     <div className={classes.appBar}>
+      <nav className={classes.hamburgerMenu}>
+        <IconButton
+          size="large"
+          edge="start"
+          color="inherit"
+          aria-label="menu"
+          sx={{ mr: 2 }}
+          onClick={() => setActive(!active)}
+        >
+          <MenuIcon />
+        </IconButton>
+      </nav>
+      <Box
+        width={170}
+        className={classes.sideBoxNav}
+        display={active ? 'block' : 'none'}
+        component="div"
+      >
+        <div className={classes.boxHeader}>
+          <BiArrowBack
+            onClick={() => {
+              setActive(!active);
+            }}
+            size="small"
+          />
+        </div>
+        <Divider />
+        <List className={classes.menu}>
+          <ListItem key={1} disablePadding>
+            <ListItemButton href="/" className={classes.link}>
+              <ListItemText primary={'Home'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key={2} disablePadding>
+            <ListItemButton href="/post" className={classes.link}>
+              <ListItemText primary={'Post Item'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key={3} disablePadding>
+            <ListItemButton href="/contact" className={classes.link}>
+              <ListItemText primary={'Contact'} />
+            </ListItemButton>
+          </ListItem>
+          <ListItem key={4} disablePadding>
+            <ListItemButton href="/support" className={classes.link}>
+              <ListItemText primary={'Support'} />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      </Box>
+
       <div className={classes.toolbar1}>
         <Typography variant="h6">
           <Link to="/" className={classes.link}>

@@ -4,9 +4,8 @@ import {
   Routes,
   Route,
   Navigate,
-  Form,
 } from 'react-router-dom';
-import { Container } from '@mui/material';
+
 import Home from './Pages/Home/Home';
 import Navbar from './components/Navbar/Navbar';
 import Auth from './components/Auth/Auth';
@@ -26,7 +25,7 @@ function App() {
             <FetchProvider>
               <PostProvider>
                 <RecomendedPostProvider>
-                  <Container maxWidth="xl">
+                  <div className="main">
                     <Navbar />
                     <Routes>
                       <Route path="/" element={<Navigate to="/items" />} />
@@ -36,7 +35,7 @@ function App() {
                       <Route path="/auth" element={<Auth />} />
                     </Routes>
                     <Footer />
-                  </Container>
+                  </div>
                 </RecomendedPostProvider>
               </PostProvider>
             </FetchProvider>

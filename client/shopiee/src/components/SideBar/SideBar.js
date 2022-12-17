@@ -33,7 +33,7 @@ const SideBar = () => {
         <Typography variant="h6">User Info</Typography>
       </Box>
       <Divider />
-      <List>
+      <List className={classes.userInfo}>
         <ListItem key={1} disablePadding>
           <ListItemButton>
             <ListItemIcon>

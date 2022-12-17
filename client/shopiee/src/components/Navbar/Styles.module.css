@@ -4,6 +4,30 @@
 header {
   min-width: 100%;
 }
+.sideBoxNav {
+  top: 14.75%;
+  max-width: 20%;
+  position: absolute;
+  height: 50%;
+  background-color: white;
+  border-bottom-right-radius: 5px;
+  z-index: 9999;
+  border-bottom: 1px solid rgb(51, 131, 236);
+  border-right: 1px solid rgba(51, 131, 236, 0.752);
+}
+.boxHeader {
+  display: flex;
+  justify-content: end;
+  max-width: 90%;
+  height: 10%;
+}
+.hamburgerMenu {
+  display: none;
+}
+.menu {
+  height: 23vh;
+}
+
 .appBar {
   display: flex;
   flex-direction: row !important;
@@ -15,7 +39,7 @@ header {
   border-bottom: 1px rgb(215, 210, 210) solid;
 }
 .logo {
-  max-width: 15%;
+  max-width: 14%;
   justify-self: start;
   display: flex;
 }
@@ -98,6 +122,10 @@ header {
   .toolbar {
     width: 70%;
   }
+  .hamburgerMenu {
+    display: flex;
+    justify-content: space-around;
+  }
   .userInfo {
     max-width: 50%;
   }
@@ -111,6 +139,9 @@ header {
 @media (max-width: 550px) {
   .userName {
     display: none;
+  }
+  .sideBoxNav {
+    min-width: 50%;
   }
   .appBar {
     min-height: 15vh;
