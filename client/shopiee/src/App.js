@@ -8,14 +8,14 @@ import {
 
 import Home from './Pages/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import Auth from './components/Auth/Auth';
 import { FetchProvider } from './context/fetchCtx';
-import { AuthProvider } from './context/Auth';
+import { AuthProvider } from './context/AuthCtx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { PostProvider } from './context/PostsCtx';
 import PostDetails from './components/Posts/PostDetails/PostDetails';
 import { RecomendedPostProvider } from './context/RecommendedCtx';
 import Footer from './components/Footer/Footer';
+import Registration from './Pages/Registeration/Registration';
 function App() {
   return (
     <>
@@ -32,7 +32,7 @@ function App() {
                       <Route path="/items" element={<Home />} />
                       <Route path="items/:id" element={<PostDetails />} />
                       <Route path="items/search" element={<Home />} />
-                      <Route path="/auth" element={<Auth />} />
+                      <Route path="/auth" element={<Registration />} />
                     </Routes>
                     <Footer />
                   </div>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Avatar, Typography, IconButton } from '@mui/material';
 import {
   Box,
@@ -14,29 +14,31 @@ import classes from './Styles.module.css';
 import logo from '../../imgs/logo.png';
 import { Link } from 'react-router-dom';
 import decode from 'jwt-decode';
-import { useLocation, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import { BiArrowBack } from 'react-icons/bi';
 import { AiOutlineUser, AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
+import { AuthContext } from '../../context/AuthCtx';
 const Navbar = () => {
   const navigate = useNavigate();
-  const location = useLocation();
+
   const [active, setActive] = useState(false);
-  const [user, setUser] = useState(JSON.parse(localStorage.getItem('profile')));
+  const { profile, setProfile } = useContext(AuthContext);
+
   const logout = async () => {
-    setUser(null);
     localStorage.clear();
+    setProfile(null);
     navigate('/auth');
   };
+
   useEffect(() => {
     (async () => {
-      const token = await user?.token;
+      const token = await profile?.token;
       if (token) {
         const decodedToken = await decode(token);
         if (decodedToken.exp * 1000 < new Date().getTime()) logout();
       }
-      setUser(JSON.parse(localStorage.getItem('profile')));
     })();
-  }, [location]);
+  });
 
   return (
     <div className={classes.appBar}>
@@ -110,7 +112,7 @@ const Navbar = () => {
             Support
           </Link>
         </Typography>
-        {user && (
+        {profile && (
           <Typography variant="h6">
             <Link to="/post" className={classes.link}>
               {' '}
@@ -126,22 +128,22 @@ const Navbar = () => {
       </div>
 
       <div className={classes.toolbar}>
-        {user?.result ? (
+        {profile?.result ? (
           <div className={classes.profile}>
             <div className={classes.userInfo}>
               <Link to="/profile">
                 <Avatar
                   className={classes.purple}
-                  alt={user?.result?.name}
-                  src={user?.result?.picture}
+                  alt={profile?.result?.name}
+                  src={profile?.result?.picture}
                 >
-                  {user?.result?.name.charAt(0)}
+                  {profile?.result?.name.charAt(0)}
                 </Avatar>
               </Link>
               <Link to="/profile">
                 <AiOutlineUser color="black" className={classes.icons} />
                 <Typography className={classes.userName} color="black">
-                  {user?.result?.name}
+                  {profile?.result?.name}
                 </Typography>
               </Link>
             </div>
