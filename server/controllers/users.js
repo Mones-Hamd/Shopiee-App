@@ -20,7 +20,7 @@ export const signIn = async (req, res) => {
       process.env.DECODE,
       { expiresIn: '48h' },
     );
-    res.status(200).json({ result: existingUser, token });
+    res.status(200).json({ success: true, result: existingUser, token });
   } catch (err) {
     res.status(500).json({ message: 'unknown error' });
   }
@@ -47,7 +47,7 @@ export const signUp = async (req, res) => {
         expiresIn: '48h',
       },
     );
-    res.status(200).json({ result, token });
+    res.status(200).json({ success: true, result, token });
   } catch (err) {
     res.status(500).json({ message: 'unknown error' });
   }
