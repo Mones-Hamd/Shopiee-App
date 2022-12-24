@@ -1,15 +1,13 @@
 import React, { useContext } from 'react';
 
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import Post from './Post/Post';
 import classes from './Styles.module.css';
 import { PostsContext } from '../../context/PostsCtx';
 
-const Posts = ({ setRender }) => {
-  const { posts, err, isLoading } = useContext(PostsContext);
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+const Posts = () => {
+  const { posts } = useContext(PostsContext);
+  return (
     <Grid
       className={classes.mainContainer}
       container
@@ -18,14 +16,9 @@ const Posts = ({ setRender }) => {
     >
       {posts.map((post) => (
         <Grid key={post._id} item xs={12} sm={6} lg={3}>
-          <Post post={post} setRender={setRender} />
+          <Post post={post} />
         </Grid>
       ))}
-      {err && (
-        <Typography variant="h3" gutterBottom>
-          Something went wrong!.. try again later{' '}
-        </Typography>
-      )}
     </Grid>
   );
 };

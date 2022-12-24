@@ -10,26 +10,27 @@ import Box from '@mui/joy/Box';
 import Card from '@mui/joy/Card';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comments from './Comments/Comments';
-
+import { usePosts } from '../../../hooks/usePosts';
+import { useRecommended } from '../../../hooks/useRecommended';
 const PostDetails = () => {
   const { id } = useParams();
-  const { posts: post, getPosts, isLoading } = useContext(PostsContext);
-  const { recommendedPosts, getRecommendedPosts } = useContext(
-    RecommendedPostsContext,
-  );
+  const { getPost } = usePosts(null, id);
+
+  const { recommendedPosts } = useContext(RecommendedPostsContext);
   useEffect(() => {
-    getPosts(`http://localhost:5000/api/posts/${id}`);
+    getPost.perform();
   }, [id]);
+  const { post } = useContext(PostsContext);
+  const { getRecommendedPosts } = useRecommended(post);
   useEffect(() => {
-    if (post[0]) {
-      const url = `http://localhost:5000/api/search?searchQuery='none'&tags=${post[0].tags.join(
-        ',',
-      )}`;
-      getRecommendedPosts(url);
+    if (post) {
+      getRecommendedPosts.perform();
     }
-  }, [post[0]]);
-  const postsToShow = recommendedPosts.filter(({ _id }) => post[0]._id !== _id);
-  if (isLoading) {
+  }, [post]);
+
+  const postsToShow = recommendedPosts?.filter(({ _id }) => post?._id !== _id);
+
+  if (getPost.isLoading) {
     return (
       <Paper elevation={6} className={classes.loading}>
         <CircularProgress size="6em" />
@@ -41,7 +42,7 @@ const PostDetails = () => {
       <div className={classes.card}>
         <div className={classes.section}>
           <Typography variant="h3" component="h2">
-            {post[0].title}
+            {post.title}
           </Typography>
           <Typography
             gutterBottom
@@ -49,30 +50,30 @@ const PostDetails = () => {
             color="textSecondary"
             component="h2"
           >
-            {post[0].tags.map((tag) => `#${tag} `)}
+            {post?.tags?.map((tag) => `#${tag} `)}
           </Typography>
           <Typography gutterBottom variant="body1" component="p">
-            {post[0].description}
+            {post.description}
           </Typography>
-          <Typography variant="h6">Posted By: {post[0].name}</Typography>
+          <Typography variant="h6">Posted By: {post.name}</Typography>
 
           <Typography variant="body1">
             {moment(post.createdAt).fromNow()}
           </Typography>
-          <Typography variant="overline">Price: {post[0].price} €</Typography>
+          <Typography variant="overline">Price: {post.price} €</Typography>
           <Typography variant="subtitle2" gutterBottom>
-            Reach me :{post[0].contact}
+            Reach me :{post.contact}
           </Typography>
           <div className={classes.actions}>
             <FavoriteIcon fontSize="small" />
-            &nbsp; {post[0].likes.length}
+            &nbsp; {post?.likes?.length}
           </div>
           <Divider style={{ margin: '20px 0' }} />
           <Typography variant="body1">
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Comments post={post[0]} />
+          <Comments post={post} />
 
           <Divider style={{ margin: '20px 0' }} />
         </div>
@@ -80,10 +81,10 @@ const PostDetails = () => {
           <img
             className={classes.media}
             src={
-              post[0].selectedFile ||
+              post.selectedFile ||
               'https://user-images.githubusercontent.com/194400/49531010-48dad180-f8b1-11e8-8d89-1e61320e1d82.png'
             }
-            alt={post[0].title}
+            alt={post.title}
           />
         </div>
       </div>

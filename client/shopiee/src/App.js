@@ -11,7 +11,7 @@ import Navbar from './components/Navbar/Navbar';
 import { FetchProvider } from './context/fetchCtx';
 import { AuthProvider } from './context/AuthCtx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
-import { PostProvider } from './context/PostsCtx';
+import { PostsProvider } from './context/PostsCtx';
 import PostDetails from './components/Posts/PostDetails/PostDetails';
 import { RecomendedPostProvider } from './context/RecommendedCtx';
 import Footer from './components/Footer/Footer';
@@ -23,7 +23,7 @@ function App() {
         <Router>
           <AuthProvider>
             <FetchProvider>
-              <PostProvider>
+              <PostsProvider>
                 <RecomendedPostProvider>
                   <div className="main">
                     <Navbar />
@@ -37,7 +37,7 @@ function App() {
                     <Footer />
                   </div>
                 </RecomendedPostProvider>
-              </PostProvider>
+              </PostsProvider>
             </FetchProvider>
           </AuthProvider>
         </Router>

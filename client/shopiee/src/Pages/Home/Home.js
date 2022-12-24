@@ -1,30 +1,40 @@
-import React, { useContext, useState } from 'react';
-import { Grid, Grow, Container, Divider, Typography } from '@mui/material';
+import React, { useEffect, useState } from 'react';
+import {
+  Grid,
+  Grow,
+  Container,
+  Divider,
+  Typography,
+  CircularProgress,
+} from '@mui/material';
 import Posts from '../../components/Posts/Posts';
 
 import classes from './Styles.module.css';
 import Paginate from '../../components/Pagination';
 
-import { PostsContext } from '../../context/PostsCtx';
 import { useLocation } from 'react-router-dom';
 import ToolBar from '../../components/ToolBar/ToolBar';
 import SideBar from '../../components/SideBar/SideBar';
 import AddItem from '../../components/AddItem/AddItem';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoChevronBackSharp } from 'react-icons/io5';
+import { usePosts } from '../../hooks/usePosts';
 
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 const Home = () => {
   const [showSide, setShowSide] = useState(true);
-  const { err, isLoading, posts } = useContext(PostsContext);
-  const [render, setRender] = useState(true);
+
   const query = useQuery();
 
   const page = query.get('page') || 1;
 
-  const searchQuery = query.get('searchQuery');
+  const { getPosts } = usePosts(page);
+  useEffect(() => {
+    getPosts.perform();
+  }, [page]);
+
   return (
     <>
       <ToolBar />
@@ -53,6 +63,8 @@ const Home = () => {
               )}
             </div>
           </div>
+          {getPosts.isLoading && <CircularProgress />}
+
           <Grid
             container
             justifyContent="space-between"
@@ -70,11 +82,13 @@ const Home = () => {
               <div className={classes.cardContainer}>
                 <Typography variant="h6">Posts</Typography>
                 <Divider />
-                <Posts posts={posts} setRender={setRender} />
+
+                <Posts />
               </div>
             </Grid>
           </Grid>
-          <Paginate render={render} page={page} />
+
+          <Paginate />
         </Container>
       </Grow>
     </>
