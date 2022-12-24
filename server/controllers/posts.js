@@ -11,6 +11,7 @@ export const getPosts = async (req, res) => {
       .limit(LIMIT)
       .skip(startIndex);
     res.status(200).json({
+      success: true,
       data: posts,
       currentPage: Number(page),
       numberOfPages: Math.ceil(total / LIMIT),
@@ -81,7 +82,7 @@ export const getPostsBySearch = async (req, res) => {
       $or: [{ title }, { tags: { $in: tags.split(',') } }],
     });
 
-    res.json({ data: posts });
+    res.json({ success: true, data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -92,7 +93,10 @@ export const getPost = async (req, res) => {
   try {
     const post = await PostItem.findById(id);
 
-    res.status(200).json({ data: [post] });
+    res.status(200).json({
+      success: true,
+      data: post,
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -112,5 +116,5 @@ export const commentOnPost = async (req, res) => {
     new: true,
   });
 
-  res.status(200).json(updatedPost);
+  res.status(200).json({ success: true, data: updatedPost });
 };
