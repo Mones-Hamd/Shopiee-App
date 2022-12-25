@@ -44,7 +44,10 @@ export const updatePost = async (req, res) => {
   const updatedPost = await PostItem.findByIdAndUpdate(_id, post, {
     new: true,
   });
-  res.json(updatedPost);
+  res.json({
+    success: true,
+    updatedPost,
+  });
 };
 export const deletePost = async (req, res) => {
   const { id } = req.params;
@@ -52,8 +55,12 @@ export const deletePost = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with that ${id}`);
   await PostItem.findByIdAndRemove(id);
-  res.json({ message: 'post deleted successfully' });
+  res.json({
+    success: true,
+    message: 'post deleted successfully',
+  });
 };
+
 export const likePost = async (req, res) => {
   const { id } = req.params;
   if (!req.userId) res.json({ message: 'Unauthnticated' });
@@ -71,7 +78,10 @@ export const likePost = async (req, res) => {
     new: true,
   });
 
-  res.status(200).json(updatedPost);
+  res.status(200).json({
+    success: true,
+    updatedPost,
+  });
 };
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
