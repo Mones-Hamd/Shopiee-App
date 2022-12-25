@@ -7,6 +7,7 @@ import { PostsContext } from '../../context/PostsCtx';
 
 const Posts = () => {
   const { posts } = useContext(PostsContext);
+
   return (
     <Grid
       className={classes.mainContainer}

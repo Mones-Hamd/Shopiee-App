@@ -16,6 +16,8 @@ import PostDetails from './components/Posts/PostDetails/PostDetails';
 import { RecomendedPostProvider } from './context/RecommendedCtx';
 import Footer from './components/Footer/Footer';
 import Registration from './Pages/Registeration/Registration';
+import PostItem from './Pages/PostItem/PostItem';
+import { ConfirmationMessageProvider } from './context/ConMessageCtx';
 function App() {
   return (
     <>
@@ -25,17 +27,20 @@ function App() {
             <FetchProvider>
               <PostsProvider>
                 <RecomendedPostProvider>
-                  <div className="main">
-                    <Navbar />
-                    <Routes>
-                      <Route path="/" element={<Navigate to="/items" />} />
-                      <Route path="/items" element={<Home />} />
-                      <Route path="items/:id" element={<PostDetails />} />
-                      <Route path="items/search" element={<Home />} />
-                      <Route path="/auth" element={<Registration />} />
-                    </Routes>
-                    <Footer />
-                  </div>
+                  <ConfirmationMessageProvider>
+                    <div className="main">
+                      <Navbar />
+                      <Routes>
+                        <Route path="/" element={<Navigate to="/items" />} />
+                        <Route path="/items" element={<Home />} />
+                        <Route path="/post" element={<PostItem />} />
+                        <Route path="items/:id" element={<PostDetails />} />
+                        <Route path="items/search" element={<Home />} />
+                        <Route path="/auth" element={<Registration />} />
+                      </Routes>
+                      <Footer />
+                    </div>
+                  </ConfirmationMessageProvider>
                 </RecomendedPostProvider>
               </PostsProvider>
             </FetchProvider>

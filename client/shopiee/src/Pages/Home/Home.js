@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import {
   Grid,
   Grow,
@@ -19,12 +19,15 @@ import AddItem from '../../components/AddItem/AddItem';
 import { IoIosArrowForward } from 'react-icons/io';
 import { IoChevronBackSharp } from 'react-icons/io5';
 import { usePosts } from '../../hooks/usePosts';
-
+import ConfirmationMessage from '../../components/ConfirmationMsg/ConfirmationMessage';
+import { ConfirmationMessageContext } from '../../context/ConMessageCtx';
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
 const Home = () => {
   const [showSide, setShowSide] = useState(true);
+
+  const { isMessage } = useContext(ConfirmationMessageContext);
 
   const query = useQuery();
 
@@ -33,7 +36,7 @@ const Home = () => {
   const { getPosts } = usePosts(page);
   useEffect(() => {
     getPosts.perform();
-  }, [page]);
+  }, [page, isMessage]);
 
   return (
     <>
@@ -82,7 +85,7 @@ const Home = () => {
               <div className={classes.cardContainer}>
                 <Typography variant="h6">Posts</Typography>
                 <Divider />
-
+                {isMessage && <ConfirmationMessage />}
                 <Posts />
               </div>
             </Grid>

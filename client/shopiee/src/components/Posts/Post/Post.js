@@ -6,46 +6,38 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import classes from './Styles.module.css';
 import EditPost from './EditPost/EditPost';
-import { FetchContext } from '../../../context/fetchCtx';
+
 import PersonOffRoundedIcon from '@mui/icons-material/PersonOffRounded';
 import Favorite from './Favourite';
 import { Link } from 'react-router-dom';
 
-const Post = ({ post, setRender }) => {
-  const { FetchPosts } = useContext(FetchContext);
-  const [isEdit, setIsEdit] = useState();
-  useEffect(() => {
-    setIsEdit(false);
-  }, []);
-  const user = JSON.parse(localStorage.getItem('profile'));
-  const deletePost = async (e) => {
-    e.preventDefault();
-    await FetchPosts(
-      `http://localhost:5000/api/posts/${post._id}`,
-      null,
-      'DELETE',
-    );
-    setRender((prev) => !prev);
-  };
-  const favouritPost = async (e) => {
-    e.preventDefault();
-    await FetchPosts(
-      `http://localhost:5000/api/posts/${post._id}/likes`,
-      null,
-      'PUT',
-    );
-    setRender((prev) => !prev);
-  };
+import { useMessage } from '../../../hooks/useMessage';
+import { ConfirmationMessageContext } from '../../../context/ConMessageCtx';
 
-  return isEdit ? (
+const Post = ({ post }) => {
+  const { setIsMessage, setIsUpdate, setIsDelete } = useMessage();
+  const { setId, isUpdate } = useContext(ConfirmationMessageContext);
+
+  useEffect(() => {
+    setIsDelete(false);
+    setIsUpdate(false);
+  }, []);
+
+  const user = JSON.parse(localStorage.getItem('profile'));
+  const userId = user?.result?._id || user?.result?.sub;
+  return isUpdate && userId === post.creator ? (
     <>
-      <EditPost setIsEdit={setIsEdit} post={post} setRender={setRender} />
+      <EditPost
+        post={post}
+        setIsUpdate={setIsUpdate}
+        setIsMessage={setIsMessage}
+      />
     </>
   ) : (
     <Card className={classes.card}>
@@ -62,12 +54,13 @@ const Post = ({ post, setRender }) => {
           </Typography>
         </div>
       </Link>
-      {(user?.result?._id || user?.result?.sub) === post.creator && (
+      {userId === post.creator && (
         <div className={classes.overlay2}>
           <Button
             onClick={(e) => {
               e.preventDefault();
-              setIsEdit(true);
+              setIsUpdate(true);
+              setId(post._id);
             }}
             size="large"
           >
@@ -97,20 +90,22 @@ const Post = ({ post, setRender }) => {
         </div>
       </Link>
       <CardActions className={classes.cardActions}>
-        <Button
-          size="small"
-          color="primary"
-          disabled={!user?.result}
-          onClick={favouritPost}
-        >
-          {!user?.result ? (
-            <PersonOffRoundedIcon fontSize="small" />
-          ) : (
-            <Favorite post={post} />
-          )}
-        </Button>
-        {(user?.result?._id || user?.result?.sub) === post?.creator && (
-          <Button size="small" color="primary" onClick={deletePost}>
+        {!user?.result ? (
+          <PersonOffRoundedIcon fontSize="small" />
+        ) : (
+          <Favorite post={post} />
+        )}
+
+        {userId === post?.creator && (
+          <Button
+            size="small"
+            color="primary"
+            onClick={() => {
+              setIsMessage(true);
+              setIsDelete(true);
+              setId(post._id);
+            }}
+          >
             <DeleteIcon fontSize="small" />
             Delete
           </Button>
