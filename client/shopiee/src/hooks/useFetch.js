@@ -1,6 +1,9 @@
-import { useState } from 'react';
+import { useContext, useState } from 'react';
+import { NotificationsContext } from '../context/NotificationsCtx';
 
 const useFetch = (route, onReceived, onError) => {
+  const { setOpen, setSuccess, setMessage, setIsError, setLoading } =
+    useContext(NotificationsContext);
   const controller = new AbortController();
   const signal = controller.signal;
   const cancelFetch = () => {
@@ -14,6 +17,7 @@ const useFetch = (route, onReceived, onError) => {
   const performFetch = async (options) => {
     setError(null);
     setIsLoading(true);
+    setLoading(true);
     setIsSuccess(false);
 
     const baseOptions = {
@@ -40,6 +44,15 @@ const useFetch = (route, onReceived, onError) => {
 
       if (jsonResult.success === true) {
         setIsSuccess(true);
+        if (options.method !== 'GET') {
+          setSuccess(true);
+          setMessage(jsonResult.message);
+          setOpen(true);
+        }
+        if (!jsonResult.message) {
+          setLoading(false);
+          setOpen(false);
+        }
         onReceived(jsonResult);
       } else {
         setError(
@@ -48,19 +61,37 @@ const useFetch = (route, onReceived, onError) => {
               jsonResult,
             )}`,
         );
+        setMessage(
+          jsonResult.msg ||
+            `The result from our API did not have an error message. Received: ${JSON.stringify(
+              jsonResult,
+            )}`,
+        );
+        if (options.method !== 'GET') {
+          setIsError(true);
+          setOpen(true);
+        }
         onError(jsonResult);
       }
 
       setIsLoading(false);
+      setLoading(false);
     };
 
     fetchData().catch((error) => {
       setError(error);
       setIsLoading(false);
+      setLoading(false);
     });
   };
 
-  return { isLoading, isSuccess, error, performFetch, cancelFetch };
+  return {
+    isLoading,
+    isSuccess,
+    error,
+    performFetch,
+    cancelFetch,
+  };
 };
 
 export default useFetch;

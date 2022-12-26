@@ -8,7 +8,7 @@ import FileBase from 'react-file-base64';
 import useFrom from '../../../../hooks/useForm';
 
 import { useMessage } from '../../../../hooks/useMessage';
-const Edit = ({ post }) => {
+const Edit = ({ post, setIsEdit }) => {
   const { setIsUpdate, setIsMessage, setPostMemo } = useMessage();
 
   const user = JSON.parse(localStorage.getItem('profile'));
@@ -24,9 +24,10 @@ const Edit = ({ post }) => {
   );
 
   const clear = () => {
+    setIsEdit(false);
     handleChange();
-    setIsUpdate(false);
   };
+
   return (
     <Paper className={classes.paper}>
       <form
@@ -100,7 +101,7 @@ const Edit = ({ post }) => {
           <Button
             size="small"
             color="primary"
-            onClick={(e) => {
+            onClick={() => {
               clear();
             }}
           >

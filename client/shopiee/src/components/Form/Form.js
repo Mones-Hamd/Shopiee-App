@@ -1,4 +1,5 @@
-import React, { useContext } from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router';
 import {
   Paper,
   Typography,
@@ -11,25 +12,28 @@ import SendIcon from '@mui/icons-material/Send';
 import classes from './Styles.module.css';
 import FileBase from 'react-file-base64';
 import useFrom from '../../hooks/useForm';
-import { FetchContext } from '../../context/fetchCtx';
-const Form = ({ setRender }) => {
-  const { err, isLoading, FetchPosts } = useContext(FetchContext);
+import { useCreate } from '../../hooks/useCreate';
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+import { useNotifications } from '../../hooks/useNontifications';
+import Notifications from '../Notifications/Notifications';
+
+const Form = () => {
+  const navigate = useNavigate();
+  const { create } = useCreate();
 
   const user = JSON.parse(localStorage.getItem('profile'));
   const submit = async (e) => {
-    await FetchPosts(
-      `http://localhost:5000/api/posts`,
-      { ...postData, name: user?.result?.name },
-      'post',
-    );
-    clear();
-    setRender((prev) => !prev);
+    create.perform({ ...postData, name: user?.result?.name });
   };
+  if (create.isSuccess) navigate('/');
   const [postData, handleChange, handleSubmit, setState] = useFrom(submit, {});
 
   const clear = () => {
     handleChange();
   };
+
   if (!user?.result?.name) {
     return (
       <Paper className={classes.paper}>
@@ -40,7 +44,8 @@ const Form = ({ setRender }) => {
     );
   }
   return (
-    <Paper className={classes.paper}>
+    <Paper className={classes.paper} elevation={3}>
+      {create.isError && <Notifications />}
       <form
         autoComplete="off"
         noValidate
@@ -48,7 +53,7 @@ const Form = ({ setRender }) => {
         className={classes.form}
       >
         <Typography variant="h6">
-          Post My Item {isLoading && <CircularProgress />}
+          Post My Item {create.isLoading && <CircularProgress />}
         </Typography>
         <TextField
           name="title"
@@ -126,7 +131,6 @@ const Form = ({ setRender }) => {
         >
           Clear
         </Button>
-        {err.length > 1 && <Typography>{err}</Typography>}
       </form>
     </Paper>
   );

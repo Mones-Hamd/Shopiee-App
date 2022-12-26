@@ -8,7 +8,7 @@ import {
 
 import Home from './Pages/Home/Home';
 import Navbar from './components/Navbar/Navbar';
-import { FetchProvider } from './context/fetchCtx';
+
 import { AuthProvider } from './context/AuthCtx';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { PostsProvider } from './context/PostsCtx';
@@ -18,18 +18,21 @@ import Footer from './components/Footer/Footer';
 import Registration from './Pages/Registeration/Registration';
 import PostItem from './Pages/PostItem/PostItem';
 import { ConfirmationMessageProvider } from './context/ConMessageCtx';
+import { NotificationsProvider } from './context/NotificationsCtx';
+import Notifications from './components/Notifications/Notifications';
 function App() {
   return (
     <>
       <GoogleOAuthProvider clientId={process.env.REACT_APP_CLIENTID}>
         <Router>
           <AuthProvider>
-            <FetchProvider>
-              <PostsProvider>
-                <RecomendedPostProvider>
-                  <ConfirmationMessageProvider>
+            <PostsProvider>
+              <RecomendedPostProvider>
+                <ConfirmationMessageProvider>
+                  <NotificationsProvider>
                     <div className="main">
                       <Navbar />
+
                       <Routes>
                         <Route path="/" element={<Navigate to="/items" />} />
                         <Route path="/items" element={<Home />} />
@@ -40,10 +43,10 @@ function App() {
                       </Routes>
                       <Footer />
                     </div>
-                  </ConfirmationMessageProvider>
-                </RecomendedPostProvider>
-              </PostsProvider>
-            </FetchProvider>
+                  </NotificationsProvider>
+                </ConfirmationMessageProvider>
+              </RecomendedPostProvider>
+            </PostsProvider>
           </AuthProvider>
         </Router>
       </GoogleOAuthProvider>

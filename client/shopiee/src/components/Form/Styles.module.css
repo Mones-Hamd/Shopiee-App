@@ -1,8 +1,11 @@
-.paper{
+.paper {
   padding: 1rem;
+  max-width: 50%;
+  margin: 1rem;
+  justify-self: end;
 }
 .form {
-  display: flex ;
+  display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 10px;
@@ -13,9 +16,9 @@
 }
 .buttonSubmit {
   margin-bottom: 10px;
-  background-color:  rgb(231, 139, 10);;
+  background-color: rgb(231, 139, 10);
 }
-.buttonClear{
+.buttonClear {
   margin-bottom: 10px;
-  color:red ;
+  color: red;
 }

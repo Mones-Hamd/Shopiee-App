@@ -6,6 +6,7 @@ import {
   Divider,
   Typography,
   CircularProgress,
+  Stack,
 } from '@mui/material';
 import Posts from '../../components/Posts/Posts';
 
@@ -21,6 +22,8 @@ import { IoChevronBackSharp } from 'react-icons/io5';
 import { usePosts } from '../../hooks/usePosts';
 import ConfirmationMessage from '../../components/ConfirmationMsg/ConfirmationMessage';
 import { ConfirmationMessageContext } from '../../context/ConMessageCtx';
+import Loading from '../../components/Loading';
+
 const useQuery = () => {
   return new URLSearchParams(useLocation().search);
 };
@@ -44,6 +47,7 @@ const Home = () => {
 
       <Grow in>
         <Container maxWidth="xl" className={classes.main}>
+          <Loading />
           <div className={classes.display}>
             <SideBar />
           </div>

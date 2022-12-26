@@ -6,7 +6,7 @@ import {
   CardMedia,
   Typography,
 } from '@mui/material';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import moment from 'moment';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -23,20 +23,23 @@ import { ConfirmationMessageContext } from '../../../context/ConMessageCtx';
 const Post = ({ post }) => {
   const { setIsMessage, setIsUpdate, setIsDelete } = useMessage();
   const { setId, isUpdate } = useContext(ConfirmationMessageContext);
+  const [isEdit, setIsEdit] = useState();
 
   useEffect(() => {
     setIsDelete(false);
     setIsUpdate(false);
+    setIsEdit(false);
   }, []);
-
+  console.log(isEdit);
   const user = JSON.parse(localStorage.getItem('profile'));
   const userId = user?.result?._id || user?.result?.sub;
-  return isUpdate && userId === post.creator ? (
+  return isEdit && isUpdate ? (
     <>
       <EditPost
         post={post}
         setIsUpdate={setIsUpdate}
         setIsMessage={setIsMessage}
+        setIsEdit={setIsEdit}
       />
     </>
   ) : (
@@ -59,6 +62,7 @@ const Post = ({ post }) => {
           <Button
             onClick={(e) => {
               e.preventDefault();
+              setIsEdit(true);
               setIsUpdate(true);
               setId(post._id);
             }}

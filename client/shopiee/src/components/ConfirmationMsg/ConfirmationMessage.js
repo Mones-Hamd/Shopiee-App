@@ -1,15 +1,28 @@
 import { Button, CircularProgress, Paper, Typography } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { ConfirmationMessageContext } from '../../context/ConMessageCtx';
 import { useDelete } from '../../hooks/useDelete';
 import { useMessage } from '../../hooks/useMessage';
 import { useUpdate } from '../../hooks/useUpdate';
 import classes from './Styles.module.css';
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+} from '@mui/material';
+import Slide from '@mui/material/Slide';
+import { useNotifications } from '../../hooks/useNontifications';
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="up" ref={ref} {...props} />;
+});
+
 const ConfirmationMessage = () => {
   const { isMessage, setIsMessage, setIsDelete, setIsUpdate } = useMessage();
   const { isUpdate, isDelete } = useContext(ConfirmationMessageContext);
-
+  const { setIsError, setIsSuccess, setOpen } = useNotifications();
   const { onDelete } = useDelete();
   const { update } = useUpdate();
   const handelSubmit = (e) => {
@@ -29,6 +42,17 @@ const ConfirmationMessage = () => {
     }
   };
 
+  if (onDelete.isSuccess || update.isSuccess) {
+    setIsError(false);
+    setOpen(true);
+    setIsSuccess(true);
+  }
+  if (onDelete.isError || update.isError) {
+    setIsError(true);
+    setOpen(true);
+    setIsSuccess(false);
+  }
+
   const cancel = (e) => {
     e.preventDefault();
     setIsMessage(false);
@@ -36,26 +60,24 @@ const ConfirmationMessage = () => {
     setIsUpdate(false);
   };
   return (
-    <Box
-      className={classes.messageContainer}
-      display={isMessage ? 'block' : 'none'}
+    <Dialog
+      open={isMessage}
+      TransitionComponent={Transition}
+      keepMounted
+      onClose={!isMessage}
+      aria-describedby="alert-dialog-slide-description"
     >
-      <Paper elevation={3} className={classes.msgPaper}>
-        {onDelete.isLoading ? (
-          <CircularProgress />
-        ) : (
-          <>
-            <Typography variant="h6">
-              Do you want to{isDelete ? ' delete' : ' update'} this Item ?{' '}
-            </Typography>
-            <div className={classes.msgAction}>
-              <Button onClick={handelSubmit}> Yes</Button>
-              <Button onClick={cancel}>No</Button>
-            </div>
-          </>
-        )}
-      </Paper>
-    </Box>
+      <DialogTitle>{isDelete ? 'Delete Item' : 'Update item'}</DialogTitle>
+      <DialogContent>
+        <DialogContentText id="alert-dialog-slide-description">
+          Do you want to {isDelete ? 'Delete ' : 'Update'} this Item ?
+        </DialogContentText>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={cancel}>No</Button>
+        <Button onClick={handelSubmit}>Yes</Button>
+      </DialogActions>
+    </Dialog>
   );
 };
 

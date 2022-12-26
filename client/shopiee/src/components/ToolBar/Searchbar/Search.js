@@ -6,17 +6,13 @@ import classes from './Styles.module.css';
 import { PostsContext } from '../../../context/PostsCtx';
 import { useNavigate } from 'react-router';
 import { AiOutlineSearch } from 'react-icons/ai';
+import { useSearch } from '../../../hooks/useSearch';
 const Search = () => {
   const navigate = useNavigate();
-  const { getPosts } = useContext(PostsContext);
-  const [tags, setTags] = useState([]);
-  const [searchTitle, setSearchTitle] = useState('');
+  const { search, setTags, setSearchTitle, tags, searchTitle } = useSearch();
   const searchPosts = async () => {
     if (searchTitle.trim() || tags) {
-      const url = `http://localhost:5000/api/search?searchQuery=${
-        searchTitle || 'none'
-      }&tags=${tags.join(',')}`;
-      await getPosts(url);
+      search.perform();
       navigate(
         `/items/search?search=${searchTitle || 'none'}&tag=${tags.join(',')}`,
       );
