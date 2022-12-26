@@ -30,7 +30,11 @@ export const createPost = async (req, res) => {
   });
   try {
     await newPost.save(newPost);
-    res.status(201).json(newPost);
+    res.status(201).json({
+      success: true,
+      newPost,
+      message: 'Item has published successfully!',
+    });
   } catch (err) {
     res.status(409).json({ msg: err.msg });
   }
@@ -47,6 +51,7 @@ export const updatePost = async (req, res) => {
   res.json({
     success: true,
     updatedPost,
+    message: 'Item has updated successfully!',
   });
 };
 export const deletePost = async (req, res) => {
@@ -57,7 +62,7 @@ export const deletePost = async (req, res) => {
   await PostItem.findByIdAndRemove(id);
   res.json({
     success: true,
-    message: 'post deleted successfully',
+    message: 'Item has deleted successfully',
   });
 };
 
@@ -81,6 +86,7 @@ export const likePost = async (req, res) => {
   res.status(200).json({
     success: true,
     updatedPost,
+    message: null,
   });
 };
 export const getPostsBySearch = async (req, res) => {
@@ -126,5 +132,9 @@ export const commentOnPost = async (req, res) => {
     new: true,
   });
 
-  res.status(200).json({ success: true, data: updatedPost });
+  res.status(200).json({
+    success: true,
+    data: updatedPost,
+    message: 'Comment has added successfully!',
+  });
 };
