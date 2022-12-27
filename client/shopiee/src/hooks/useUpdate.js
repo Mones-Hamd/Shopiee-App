@@ -1,7 +1,7 @@
-import { useContext } from 'react';
-import { AuthContext } from '../context/AuthCtx';
-import { ConfirmationMessageContext } from '../context/ConMessageCtx';
-import useFetch from './useFetch';
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthCtx";
+import { ConfirmationMessageContext } from "../context/ConMessageCtx";
+import useFetch from "./useFetch";
 
 export const useUpdate = () => {
   const { profile } = useContext(AuthContext);
@@ -12,9 +12,9 @@ export const useUpdate = () => {
   const usePostUpdate = useFetch(ROUT);
   const update = () => {
     const requestOpt = {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
         Authorization: `bearer ${profile.token}`,
       },
       body: JSON.stringify(postMemo),

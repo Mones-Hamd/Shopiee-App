@@ -1,10 +1,10 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthCtx';
-import { ConfirmationMessageContext } from '../context/ConMessageCtx';
-import useFetch from './useFetch';
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthCtx";
+import { ConfirmationMessageContext } from "../context/ConMessageCtx";
+import useFetch from "./useFetch";
 
 export const useDelete = () => {
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const { profile } = useContext(AuthContext);
   const { id } = useContext(ConfirmationMessageContext);
   const onReceived = (data) => {
@@ -14,9 +14,9 @@ export const useDelete = () => {
   const usePostDelete = useFetch(ROUT, onReceived);
   const preformDelete = () => {
     const requestOpt = {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
         Authorization: `bearer ${profile.token}`,
       },
     };

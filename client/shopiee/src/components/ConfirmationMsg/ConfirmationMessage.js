@@ -1,11 +1,9 @@
-import { Button, CircularProgress, Paper, Typography } from '@mui/material';
-import { Box } from '@mui/system';
-import React, { useContext, useEffect } from 'react';
+import { Button } from '@mui/material';
+import React, { useContext } from 'react';
 import { ConfirmationMessageContext } from '../../context/ConMessageCtx';
 import { useDelete } from '../../hooks/useDelete';
 import { useMessage } from '../../hooks/useMessage';
 import { useUpdate } from '../../hooks/useUpdate';
-import classes from './Styles.module.css';
 import {
   Dialog,
   DialogActions,
@@ -28,7 +26,6 @@ const ConfirmationMessage = () => {
   const handelSubmit = (e) => {
     if (isDelete) {
       onDelete.perform();
-
       setIsMessage(false);
       setIsDelete(false);
       return;
@@ -36,7 +33,6 @@ const ConfirmationMessage = () => {
     if (isUpdate) {
       update.perform();
       setIsMessage(false);
-
       setIsUpdate(false);
       return;
     }

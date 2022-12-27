@@ -12,7 +12,6 @@ const AddItem = () => {
             <BsPlusCircle size={50} className={classes.add} color="blue" />
           </Link>
         </CardMedia>
-
         <Typography
           gutterBottom
           component="div"

@@ -18,9 +18,9 @@
   min-width: 100%;
 }
 .container {
-  max-width: 80%;
+  max-width: 90%;
   position: relative;
-  left: 20%;
+  left: 10%;
   top: 40px;
   display: none;
 }
@@ -35,6 +35,10 @@
 .action {
   max-height: 43vh;
   margin-bottom: 0.3em;
+}
+.cardSectionHeader {
+  display: flex;
+  justify-content: space-between;
 }
 @media (max-width: 800px) {
   .userSideBar {

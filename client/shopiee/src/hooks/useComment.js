@@ -1,11 +1,9 @@
 import { useContext, useRef, useState } from 'react';
-
 import { AuthContext } from '../context/AuthCtx';
 import useFetch from './useFetch';
 
 export const useComment = (post) => {
   const { profile } = useContext(AuthContext);
-
   const [comment, setComment] = useState('');
   const [comments, setComments] = useState(post.comments);
   const commentsRef = useRef();
@@ -34,7 +32,6 @@ export const useComment = (post) => {
       isError: useSetComment.error,
       cancel: useSetComment.cancelFetch,
     },
-
     getComment: {
       comment,
       setComment,

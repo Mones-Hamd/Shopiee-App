@@ -8,7 +8,6 @@ import {
   ListItemButton,
   ListItemText,
 } from '@mui/material';
-
 import MenuIcon from '@mui/icons-material/Menu';
 import classes from './Styles.module.css';
 import logo from '../../imgs/logo.png';
@@ -20,10 +19,8 @@ import { AiOutlineUser, AiOutlineLogout, AiOutlineLogin } from 'react-icons/ai';
 import { AuthContext } from '../../context/AuthCtx';
 const Navbar = () => {
   const navigate = useNavigate();
-
   const [active, setActive] = useState(false);
   const { profile, setProfile } = useContext(AuthContext);
-
   const logout = async () => {
     localStorage.clear();
     setProfile(null);
@@ -92,7 +89,6 @@ const Navbar = () => {
           </ListItem>
         </List>
       </Box>
-
       <div className={classes.toolbar1}>
         <Typography variant="h6">
           <Link to="/" className={classes.link}>
@@ -126,7 +122,6 @@ const Navbar = () => {
           <img className={classes.image} src={logo} alt="logo" />
         </Link>
       </div>
-
       <div className={classes.toolbar}>
         {profile?.result ? (
           <div className={classes.profile}>

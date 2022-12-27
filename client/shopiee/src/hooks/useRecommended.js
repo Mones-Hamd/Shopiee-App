@@ -1,19 +1,19 @@
-import { useContext } from 'react';
-import { RecommendedPostsContext } from '../context/RecommendedCtx';
-import useFetch from './useFetch';
+import { useContext } from "react";
+import { RecommendedPostsContext } from "../context/RecommendedCtx";
+import useFetch from "./useFetch";
 
 export const useRecommended = (post) => {
   const { setRecommendedPosts } = useContext(RecommendedPostsContext);
-  const ROUT = `/search?searchQuery='none'&tags=${post?.tags?.join(',')}`;
+  const ROUT = `/search?searchQuery='none'&tags=${post?.tags?.join(",")}`;
   const onReceived = async (data) => {
     await setRecommendedPosts(data.data);
   };
   const usePost = useFetch(ROUT, onReceived);
   const getRecommended = () => {
     const requestOpt = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
     };
     usePost.performFetch(requestOpt);

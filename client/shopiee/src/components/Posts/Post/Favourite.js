@@ -1,11 +1,11 @@
-import React from 'react';
-import { Button } from '@mui/material';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useLike } from '../../../hooks/useLike';
+import React from "react";
+import { Button } from "@mui/material";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import { useLike } from "../../../hooks/useLike";
 const Favorite = ({ post }) => {
   const { like, likes, setLikes } = useLike(post);
-  const user = JSON.parse(localStorage.getItem('profile'));
+  const user = JSON.parse(localStorage.getItem("profile"));
   const userId = user?.result?.sub || user?.result?._id;
   const isLiked = likes?.find((like) => like === userId);
   const handleFavourite = async (e) => {
@@ -29,7 +29,7 @@ const Favorite = ({ post }) => {
         &nbsp;
         {likes?.length > 2
           ? `You and ${likes.length - 1} others`
-          : `${likes.length} like${likes.length > 1 ? 's' : ''}`}
+          : `${likes.length} like${likes.length > 1 ? "s" : ""}`}
       </Button>
     ) : (
       <Button
@@ -39,7 +39,7 @@ const Favorite = ({ post }) => {
         onClick={handleFavourite}
       >
         <FavoriteBorderIcon fontSize="small" />
-        &nbsp;{likes.length} {likes.length === 1 ? 'Like' : 'Likes'}
+        &nbsp;{likes.length} {likes.length === 1 ? "Like" : "Likes"}
       </Button>
     );
   }

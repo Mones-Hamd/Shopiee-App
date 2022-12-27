@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, createContext } from 'react';
+import React from "react";
+import { useState, createContext } from "react";
 export const ConfirmationMessageContext = createContext();
 export const ConfirmationMessageProvider = ({ children }) => {
   const [id, setId] = useState();

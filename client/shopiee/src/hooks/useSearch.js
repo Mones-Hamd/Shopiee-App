@@ -1,11 +1,11 @@
-import { useContext, useState } from 'react';
-import { PostsContext } from '../context/PostsCtx';
-import useFetch from './useFetch';
+import { useContext, useState } from "react";
+import { PostsContext } from "../context/PostsCtx";
+import useFetch from "./useFetch";
 export const useSearch = () => {
   const [tags, setTags] = useState([]);
-  const [searchTitle, setSearchTitle] = useState('');
-  const ROUT = `/search?searchQuery=${searchTitle || 'none'}&tags=${tags.join(
-    ',',
+  const [searchTitle, setSearchTitle] = useState("");
+  const ROUT = `/search?searchQuery=${searchTitle || "none"}&tags=${tags.join(
+    ","
   )}`;
   const { setPosts } = useContext(PostsContext);
   const onRecived = (data) => {
@@ -14,9 +14,9 @@ export const useSearch = () => {
   const useSearchPosts = useFetch(ROUT, onRecived);
   const search = () => {
     const requestOpt = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
     };
     useSearchPosts.performFetch(requestOpt);

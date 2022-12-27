@@ -1,7 +1,7 @@
-import React from 'react';
-import { TextField, Grid, InputAdornment, IconButton } from '@mui/material';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import React from "react";
+import { TextField, Grid, InputAdornment, IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const Input = ({
   handleChange,
   name,
@@ -23,12 +23,12 @@ const Input = ({
         autoFocus={autoFocus}
         type={type}
         InputProps={
-          name === 'password'
+          name === "password"
             ? {
                 endAdornment: (
                   <InputAdornment position="end">
                     <IconButton onClick={handleShowPassword}>
-                      {type === 'password' ? (
+                      {type === "password" ? (
                         <VisibilityIcon />
                       ) : (
                         <VisibilityOffIcon />

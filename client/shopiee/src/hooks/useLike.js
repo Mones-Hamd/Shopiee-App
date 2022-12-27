@@ -1,6 +1,6 @@
-import { useContext, useState } from 'react';
-import { AuthContext } from '../context/AuthCtx';
-import useFetch from './useFetch';
+import { useContext, useState } from "react";
+import { AuthContext } from "../context/AuthCtx";
+import useFetch from "./useFetch";
 
 export const useLike = (post) => {
   const { profile } = useContext(AuthContext);
@@ -9,9 +9,9 @@ export const useLike = (post) => {
   const usePostLike = useFetch(ROUT);
   const like = () => {
     const requestOpt = {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
         Authorization: `bearer ${profile.token}`,
       },
     };

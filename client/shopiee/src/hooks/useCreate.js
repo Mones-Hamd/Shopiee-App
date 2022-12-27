@@ -1,14 +1,10 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../context/AuthCtx';
-import { NotificationsContext } from '../context/NotificationsCtx';
 import useFetch from './useFetch';
-import { useNotifications } from './useNontifications';
 
 export const useCreate = () => {
   const { profile } = useContext(AuthContext);
-  const [message, setMessage] = useState('');
   const ROUT = `/posts`;
-
   const usePostCreate = useFetch(ROUT);
   const create = (post) => {
     const requestOpt = {

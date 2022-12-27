@@ -14,12 +14,11 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { PostsProvider } from './context/PostsCtx';
 import PostDetails from './components/Posts/PostDetails/PostDetails';
 import { RecomendedPostProvider } from './context/RecommendedCtx';
-import Footer from './components/Footer/Footer';
 import Registration from './Pages/Registeration/Registration';
 import PostItem from './Pages/PostItem/PostItem';
 import { ConfirmationMessageProvider } from './context/ConMessageCtx';
 import { NotificationsProvider } from './context/NotificationsCtx';
-import Notifications from './components/Notifications/Notifications';
+
 function App() {
   return (
     <>
@@ -41,7 +40,6 @@ function App() {
                         <Route path="items/search" element={<Home />} />
                         <Route path="/auth" element={<Registration />} />
                       </Routes>
-                      <Footer />
                     </div>
                   </NotificationsProvider>
                 </ConfirmationMessageProvider>

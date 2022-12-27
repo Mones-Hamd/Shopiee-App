@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react';
-import { NotificationsContext } from '../context/NotificationsCtx';
+import { useContext, useState } from "react";
+import { NotificationsContext } from "../context/NotificationsCtx";
 
 const useFetch = (route, onReceived, onError) => {
   const { setOpen, setSuccess, setMessage, setIsError, setLoading } =
@@ -21,9 +21,9 @@ const useFetch = (route, onReceived, onError) => {
     setIsSuccess(false);
 
     const baseOptions = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
       },
     };
 
@@ -36,7 +36,7 @@ const useFetch = (route, onReceived, onError) => {
         setError(
           `Fetch for ${url} returned an invalid status (${
             res.status
-          }). Received: ${JSON.stringify(res)}`,
+          }). Received: ${JSON.stringify(res)}`
         );
       }
 
@@ -44,7 +44,7 @@ const useFetch = (route, onReceived, onError) => {
 
       if (jsonResult.success === true) {
         setIsSuccess(true);
-        if (options.method !== 'GET') {
+        if (options.method !== "GET") {
           setSuccess(true);
           setMessage(jsonResult.message);
           setOpen(true);
@@ -58,16 +58,16 @@ const useFetch = (route, onReceived, onError) => {
         setError(
           jsonResult.msg ||
             `The result from our API did not have an error message. Received: ${JSON.stringify(
-              jsonResult,
-            )}`,
+              jsonResult
+            )}`
         );
         setMessage(
           jsonResult.msg ||
             `The result from our API did not have an error message. Received: ${JSON.stringify(
-              jsonResult,
-            )}`,
+              jsonResult
+            )}`
         );
-        if (options.method !== 'GET') {
+        if (options.method !== "GET") {
           setIsError(true);
           setOpen(true);
         }

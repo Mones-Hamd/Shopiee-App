@@ -4,25 +4,20 @@ import ClearIcon from '@mui/icons-material/Clear';
 import classes from './Styles.module.css';
 import React from 'react';
 import FileBase from 'react-file-base64';
-
 import useFrom from '../../../../hooks/useForm';
-
 import { useMessage } from '../../../../hooks/useMessage';
 const Edit = ({ post, setIsEdit }) => {
   const { setIsUpdate, setIsMessage, setPostMemo } = useMessage();
-
   const user = JSON.parse(localStorage.getItem('profile'));
   const submit = async (e) => {
     setIsMessage(true);
     setIsUpdate(true);
-
     setPostMemo({ ...postData, name: user?.result?.name });
   };
   const [postData, handleChange, handleSubmit, setState] = useFrom(
     submit,
     post,
   );
-
   const clear = () => {
     setIsEdit(false);
     handleChange();
@@ -108,7 +103,6 @@ const Edit = ({ post, setIsEdit }) => {
             <ClearIcon fontSize="larger" />
             Cancel
           </Button>
-
           <Button size="small" color="primary" type="submit">
             <CheckIcon fontSize="large" />
             Edit

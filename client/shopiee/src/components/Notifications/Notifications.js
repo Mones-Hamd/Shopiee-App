@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
 import { NotificationsContext } from '../../context/NotificationsCtx';
@@ -9,9 +8,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
 const Notifications = () => {
-  const { open, setOpen, Success, isError, message } =
-    useContext(NotificationsContext);
-
+  const { open, setOpen, Success, message } = useContext(NotificationsContext);
   const handleClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;

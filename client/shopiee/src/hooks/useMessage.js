@@ -1,5 +1,5 @@
-import { useContext } from 'react';
-import { ConfirmationMessageContext } from '../context/ConMessageCtx';
+import { useContext } from "react";
+import { ConfirmationMessageContext } from "../context/ConMessageCtx";
 export const useMessage = () => {
   const {
     isMessage,

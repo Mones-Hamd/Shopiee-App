@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
-import Pagination from '@mui/material/Pagination';
-import Stack from '@mui/material/Stack';
-import { PaginationItem } from '@mui/material';
-import { Link } from 'react-router-dom';
-import { PostsContext } from '../context/PostsCtx';
+import React, { useContext } from "react";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
+import { PaginationItem } from "@mui/material";
+import { Link } from "react-router-dom";
+import { PostsContext } from "../context/PostsCtx";
 
 const Paginate = () => {
   const { numberOfPages } = useContext(PostsContext);

@@ -1,12 +1,11 @@
-import React, { useContext, useState } from 'react';
-import Chip from '@mui/material/Chip';
-import Stack from '@mui/material/Stack';
-import { TextField, Button } from '@mui/material';
-import classes from './Styles.module.css';
-import { PostsContext } from '../../../context/PostsCtx';
-import { useNavigate } from 'react-router';
-import { AiOutlineSearch } from 'react-icons/ai';
-import { useSearch } from '../../../hooks/useSearch';
+import React from "react";
+import Chip from "@mui/material/Chip";
+import Stack from "@mui/material/Stack";
+import { TextField, Button } from "@mui/material";
+import classes from "./Styles.module.css";
+import { useNavigate } from "react-router";
+import { AiOutlineSearch } from "react-icons/ai";
+import { useSearch } from "../../../hooks/useSearch";
 const Search = () => {
   const navigate = useNavigate();
   const { search, setTags, setSearchTitle, tags, searchTitle } = useSearch();
@@ -14,10 +13,10 @@ const Search = () => {
     if (searchTitle.trim() || tags) {
       search.perform();
       navigate(
-        `/items/search?search=${searchTitle || 'none'}&tag=${tags.join(',')}`,
+        `/items/search?search=${searchTitle || "none"}&tag=${tags.join(",")}`
       );
     } else {
-      navigate('/');
+      navigate("/");
     }
   };
   const handleOnDelete = (tagOnDelete) =>
@@ -30,7 +29,7 @@ const Search = () => {
           (tag, indx) =>
             indx < 3 && (
               <Chip label={tag} onDelete={() => handleOnDelete(tag)} />
-            ),
+            )
         )}
       </Stack>
       <div className={classes.searchContainer}>

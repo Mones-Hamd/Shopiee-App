@@ -1,11 +1,11 @@
-import React from 'react';
-import { useState, createContext } from 'react';
+import React from "react";
+import { useState, createContext } from "react";
 export const NotificationsContext = createContext();
 export const NotificationsProvider = ({ children }) => {
   const [open, setOpen] = useState();
   const [Success, setSuccess] = useState(false);
   const [isError, setIsError] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const value = {
     open,

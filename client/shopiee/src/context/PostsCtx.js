@@ -1,5 +1,5 @@
-import React from 'react';
-import { useState, createContext } from 'react';
+import React from "react";
+import { useState, createContext } from "react";
 export const PostsContext = createContext();
 export const PostsProvider = ({ children }) => {
   const [post, setPost] = useState({});

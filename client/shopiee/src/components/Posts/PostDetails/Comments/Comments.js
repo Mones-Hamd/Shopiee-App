@@ -1,14 +1,12 @@
 import React from 'react';
 import { Typography, Button, TextField, CircularProgress } from '@mui/material';
 import classes from './Styles.module.css';
-
 import SendIcon from '@mui/icons-material/Send';
 import { useComment } from '../../../../hooks/useComment';
 const Comments = ({ post }) => {
   const { setUserComment, getComment, getComments, commentsRef } =
     useComment(post);
   const user = JSON.parse(localStorage.getItem('profile'));
-
   const handleComment = async (e) => {
     const userComment = `${user.result.name}: ${getComment.comment}`;
     setUserComment.perform(userComment);
@@ -17,7 +15,7 @@ const Comments = ({ post }) => {
 
   return (
     <div className={classes.commentsOuterContainer}>
-      <div className={classes.commentsInnerContainer}>
+      <div className={classes.commentsInnerContainer} style={{ width: '50%' }}>
         <Typography gutterBottom variant="h6">
           Comments
         </Typography>
@@ -30,11 +28,10 @@ const Comments = ({ post }) => {
         <div ref={commentsRef} />
       </div>
       {user?.result?.name && (
-        <div style={{ width: '70%' }}>
+        <div style={{ width: '50%' }}>
           <Typography gutterBottom variant="h6">
             Leave a comment and FeedBack
           </Typography>
-
           <TextField
             fullWidth
             rows={4}

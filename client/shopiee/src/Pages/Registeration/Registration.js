@@ -1,5 +1,5 @@
-import React from 'react';
-import AuthForm from '../../components/Auth/Auth';
+import React from "react";
+import AuthForm from "../../components/Auth/Auth";
 
 const Registration = () => {
   return (

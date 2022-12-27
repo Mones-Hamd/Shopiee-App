@@ -3,7 +3,6 @@ import { FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import classes from './Styles.module.css';
 const Sort = () => {
   const [value, setValue] = useState('');
-
   const handleChange = (e) => {
     setValue(e.target.value);
   };

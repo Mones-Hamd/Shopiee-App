@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router';
 import {
   Paper,
@@ -13,18 +13,13 @@ import classes from './Styles.module.css';
 import FileBase from 'react-file-base64';
 import useFrom from '../../hooks/useForm';
 import { useCreate } from '../../hooks/useCreate';
-import Snackbar from '@mui/material/Snackbar';
-import MuiAlert from '@mui/material/Alert';
-import Stack from '@mui/material/Stack';
-import { useNotifications } from '../../hooks/useNontifications';
 import Notifications from '../Notifications/Notifications';
 
 const Form = () => {
   const navigate = useNavigate();
   const { create } = useCreate();
-
   const user = JSON.parse(localStorage.getItem('profile'));
-  const submit = async (e) => {
+  const submit = (e) => {
     create.perform({ ...postData, name: user?.result?.name });
   };
   if (create.isSuccess) navigate('/');

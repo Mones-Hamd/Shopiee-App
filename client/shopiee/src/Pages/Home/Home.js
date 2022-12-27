@@ -1,18 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import {
-  Grid,
-  Grow,
-  Container,
-  Divider,
-  Typography,
-  CircularProgress,
-  Stack,
-} from '@mui/material';
+import { Grid, Grow, Container, Divider, Typography } from '@mui/material';
 import Posts from '../../components/Posts/Posts';
-
 import classes from './Styles.module.css';
 import Paginate from '../../components/Pagination';
-
 import { useLocation } from 'react-router-dom';
 import ToolBar from '../../components/ToolBar/ToolBar';
 import SideBar from '../../components/SideBar/SideBar';
@@ -70,7 +60,6 @@ const Home = () => {
               )}
             </div>
           </div>
-          {getPosts.isLoading && <CircularProgress />}
 
           <Grid
             container
@@ -87,15 +76,16 @@ const Home = () => {
               </div>
               <Divider />
               <div className={classes.cardContainer}>
-                <Typography variant="h6">Posts</Typography>
+                <div className={classes.cardSectionHeader}>
+                  <Typography variant="h6">Posts</Typography>
+                  <Paginate />
+                </div>
                 <Divider />
                 {isMessage && <ConfirmationMessage />}
                 <Posts />
               </div>
             </Grid>
           </Grid>
-
-          <Paginate />
         </Container>
       </Grow>
     </>

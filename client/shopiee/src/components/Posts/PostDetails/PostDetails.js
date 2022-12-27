@@ -3,13 +3,10 @@ import { Paper, Typography, CircularProgress, Divider } from '@mui/material';
 import classes from './Styles.module.css';
 import { useParams } from 'react-router-dom';
 import { PostsContext } from '../../../context/PostsCtx';
-import { RecommendedPostsContext } from '../../../context/RecommendedCtx';
 import moment from 'moment';
-
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comments from './Comments/Comments';
 import { usePosts } from '../../../hooks/usePosts';
-import { useRecommended } from '../../../hooks/useRecommended';
 import Notifications from '../../Notifications/Notifications';
 import Recommended from './RecommendedPosts/Reecommended';
 const PostDetails = () => {
@@ -28,7 +25,7 @@ const PostDetails = () => {
     );
   }
   return (
-    <Paper style={{ padding: '20px', borderRadius: '15px' }} elevation={6}>
+    <Paper style={{ padding: '20px' }} elevation={6}>
       <Notifications />
       <div className={classes.card}>
         <div className={classes.section}>
@@ -64,7 +61,6 @@ const PostDetails = () => {
             <strong>Realtime Chat - coming soon!</strong>
           </Typography>
           <Divider style={{ margin: '20px 0' }} />
-          <Comments post={post} />
 
           <Divider style={{ margin: '20px 0' }} />
         </div>
@@ -79,6 +75,7 @@ const PostDetails = () => {
           />
         </div>
       </div>
+      <Comments post={post} />
       <Recommended post={post} />
     </Paper>
   );

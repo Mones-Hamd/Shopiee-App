@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-
 import { AuthContext } from '../context/AuthCtx';
 import useFetch from './useFetch';
 
@@ -9,7 +8,6 @@ export const useAuth = () => {
   const SIGNUPROUT = '/user/signup';
   const onReceived = async (data) => {
     await setProfile(data);
-
     localStorage.setItem('profile', JSON.stringify(data));
   };
   const useSignIn = useFetch(SIGNINROUT, onReceived);

@@ -1,5 +1,4 @@
 import { useContext } from 'react';
-
 import { PostsContext } from '../context/PostsCtx';
 import useFetch from './useFetch';
 

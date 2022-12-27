@@ -1,13 +1,10 @@
-import React, { useContext, useEffect } from 'react';
-import AspectRatio from '@mui/joy/AspectRatio';
-import Box from '@mui/joy/Box';
-import Card from '@mui/joy/Card';
-import { Link } from 'react-router-dom';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { Typography, Divider } from '@mui/material';
-import classes from '../Styles.module.css';
-import { RecommendedPostsContext } from '../../../../context/RecommendedCtx';
-import { useRecommended } from '../../../../hooks/useRecommended';
+import React, { useContext, useEffect } from "react";
+import Box from "@mui/joy/Box";
+import { Typography, Grid } from "@mui/material";
+import classes from "../Styles.module.css";
+import { RecommendedPostsContext } from "../../../../context/RecommendedCtx";
+import { useRecommended } from "../../../../hooks/useRecommended";
+import Post from "../../Post/Post";
 const Recommended = ({ post }) => {
   const { recommendedPosts } = useContext(RecommendedPostsContext);
   const { getRecommendedPosts } = useRecommended(post);
@@ -20,60 +17,45 @@ const Recommended = ({ post }) => {
   const postsToShow = recommendedPosts?.filter(({ _id }) => post?._id !== _id);
   return (
     postsToShow.length && (
-      <Divider>
+      <>
         <Typography variant="h5" gutterBottom>
           You might Also Like
         </Typography>
-        <Box
-          sx={{
-            display: 'flex',
-            gap: 2,
-            py: 1,
-            overflow: 'auto',
-            width: 900,
-            scrollSnapType: 'x mandatory',
-            '& > *': {
-              scrollSnapAlign: 'center',
-            },
-            '::-webkit-scrollbar': { display: 'none' },
-          }}
-        >
-          {postsToShow.map(
-            ({ title, selectedFile, price, description, name, likes, _id }) => (
-              <Card
-                row
-                key={title}
-                variant="outlined"
-                className={classes.recommendedCard}
-              >
-                <Link to={`/items/${_id}`} className={classes.link}>
-                  <AspectRatio
-                    ratio="1"
-                    sx={{
-                      minWidth: 300,
-                      borderRadius: 'sm',
-                      overflow: 'auto',
-                    }}
-                    className={classes.recommendedMedia}
-                  >
-                    <img src={selectedFile} alt={title} />
-                  </AspectRatio>
-                  <Box sx={{ whiteSpace: 'nowrap' }} className={classes.Rtitle}>
-                    <Typography fontWeight="md"> Posted by: {name}</Typography>
-                    <Typography fontWeight="md">{title}</Typography>
-                    <Typography level="body2">{description}</Typography>
-                    <Typography level="body2">Price: {price} € </Typography>
-                    <div className={classes.actions}>
-                      <FavoriteIcon fontSize="small" />
-                      &nbsp; {likes.length}
-                    </div>
-                  </Box>
-                </Link>
-              </Card>
-            ),
-          )}
-        </Box>
-      </Divider>
+        <div className={classes.recommendedContainer}>
+          <Box
+            sx={{
+              display: "flex",
+              height: "90%",
+              overflowX: "auto",
+              py: 1,
+              maxWidth: "100%",
+              scrollSnapType: "x mandatory",
+              "& > *": { scrollSnapAlign: "center" },
+              "::-webkit-scrollbar": { display: "none" },
+            }}
+          >
+            <Grid
+              className={classes.mainContainer}
+              container
+              alignitem="stretch"
+              spacing={1}
+            >
+              {postsToShow.map((post) => (
+                <Grid
+                  key={post._id}
+                  item
+                  xs={6}
+                  sm={3}
+                  lg={2.4}
+                  className={classes.cardGrid}
+                >
+                  <Post post={post} />
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </div>
+      </>
     )
   );
 };
