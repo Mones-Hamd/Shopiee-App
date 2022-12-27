@@ -3,7 +3,7 @@ import PostItem from '../models/PostItem.js';
 export const getPosts = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 6;
+    const LIMIT = 15;
     const startIndex = (Number(page) - 1) * LIMIT;
     const total = await PostItem.countDocuments({});
     const posts = await PostItem.find()
