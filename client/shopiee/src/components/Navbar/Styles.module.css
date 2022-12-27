@@ -1,9 +1,36 @@
 .container {
   min-width: 100%;
 }
+a {
+  text-decoration: none;
+}
 header {
   min-width: 100%;
 }
+.sideBoxNav {
+  top: 14.75%;
+  max-width: 20%;
+  position: absolute;
+  height: 50%;
+  background-color: white;
+  border-bottom-right-radius: 5px;
+  z-index: 9999;
+  border-bottom: 1px solid rgb(51, 131, 236);
+  border-right: 1px solid rgba(51, 131, 236, 0.752);
+}
+.boxHeader {
+  display: flex;
+  justify-content: end;
+  max-width: 90%;
+  height: 10%;
+}
+.hamburgerMenu {
+  display: none;
+}
+.menu {
+  height: 23vh;
+}
+
 .appBar {
   display: flex;
   flex-direction: row !important;
@@ -15,12 +42,12 @@ header {
   border-bottom: 1px rgb(215, 210, 210) solid;
 }
 .logo {
-  max-width: 15%;
+  max-width: 13%;
   justify-self: start;
   display: flex;
 }
 .icons {
-  margin: 3px;
+  margin: 5px;
 }
 .image {
   display: flex;
@@ -52,19 +79,23 @@ header {
   width: 100%;
   display: flex;
   align-items: center;
+  margin: 5px;
 }
 
 .purple {
+  margin: 8px;
   color: blueviolet;
+  max-width: 90%;
 }
-.link {
+.navLink {
+  text-decoration: none;
   margin: 20px;
   text-align: center;
   font-size: 13px;
   color: rgb(36, 76, 251);
   transition: 0.5s;
 }
-.link:hover {
+.navLink:hover {
   text-decoration: underline;
   transform: scale(1.07);
 }
@@ -98,6 +129,10 @@ header {
   .toolbar {
     width: 70%;
   }
+  .hamburgerMenu {
+    display: flex;
+    justify-content: space-around;
+  }
   .userInfo {
     max-width: 50%;
   }
@@ -111,6 +146,9 @@ header {
 @media (max-width: 550px) {
   .userName {
     display: none;
+  }
+  .sideBoxNav {
+    min-width: 50%;
   }
   .appBar {
     min-height: 15vh;

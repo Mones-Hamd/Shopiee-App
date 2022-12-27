@@ -8,7 +8,6 @@ const useFrom = (submitCb, defaultValue) => {
   const handleChange = (e) => {
     if (e) {
       e.persist();
-
       setState((state) => ({ ...state, [e.target.name]: e.target.value }));
     } else {
       setState({});

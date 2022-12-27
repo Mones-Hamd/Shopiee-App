@@ -1,41 +1,28 @@
-import {
-  Button,
-  CardMedia,
-  Typography,
-  TextField,
-  Paper,
-  CircularProgress,
-} from '@mui/material';
+import { Button, CardMedia, TextField, Paper } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 import ClearIcon from '@mui/icons-material/Clear';
 import classes from './Styles.module.css';
-import React, { useContext, useState } from 'react';
+import React from 'react';
 import FileBase from 'react-file-base64';
-import { FetchContext } from '../../../../context/fetchCtx';
 import useFrom from '../../../../hooks/useForm';
-
-const Edit = ({ post, setIsEdit, setRender }) => {
-  const { err, isLoading, FetchPosts } = useContext(FetchContext);
-
+import { useMessage } from '../../../../hooks/useMessage';
+const Edit = ({ post, setIsEdit }) => {
+  const { setIsUpdate, setIsMessage, setPostMemo } = useMessage();
   const user = JSON.parse(localStorage.getItem('profile'));
-  const submit = (e) => {
-    FetchPosts(
-      `http://localhost:5000/api/posts/${post._id}`,
-      { ...postData, name: user?.result?.name },
-      'put',
-    );
-    setRender((prev) => !prev);
-    clear();
+  const submit = async (e) => {
+    setIsMessage(true);
+    setIsUpdate(true);
+    setPostMemo({ ...postData, name: user?.result?.name });
   };
   const [postData, handleChange, handleSubmit, setState] = useFrom(
     submit,
     post,
   );
-
   const clear = () => {
     setIsEdit(false);
     handleChange();
   };
+
   return (
     <Paper className={classes.paper}>
       <form
@@ -109,19 +96,17 @@ const Edit = ({ post, setIsEdit, setRender }) => {
           <Button
             size="small"
             color="primary"
-            onClick={(e) => {
+            onClick={() => {
               clear();
             }}
           >
             <ClearIcon fontSize="larger" />
             Cancel
           </Button>
-          {isLoading && <CircularProgress />}
           <Button size="small" color="primary" type="submit">
             <CheckIcon fontSize="large" />
             Edit
           </Button>
-          {err.length > 1 && <Typography>{err}</Typography>}
         </div>
       </form>
     </Paper>

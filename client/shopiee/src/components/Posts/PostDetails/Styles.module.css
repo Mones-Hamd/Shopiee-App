@@ -1,67 +1,73 @@
 .media {
-  border-radius: 10px;
-  object-fit: 'cover';
+  border-radius: 5px;
+  object-fit: "cover";
   width: 100%;
-  max-height: 500px,
-
+  max-height: 500px;
 }
 .card {
   display: flex;
   width: 100%;
-
 }
 .section {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  border-radius: 10px;
+
   margin: 10px;
   flex: 1;
-
 }
 .imageSection {
   margin-left: 20px;
   max-width: 40%;
 }
-.loading{
-
+.loading {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 20px;
-  border-radius: 10px;
+
   height: 39vh;
 }
-.recommendedCard{
-  margin-top:10px;
-  max-width: 59%;
-
-  padding: 10px;
-  display: 'flex';
-  flex-direction: column;
-  justify-content: space-around;
-  border-radius: 10px;
+.recommendedContainer {
+  max-width: 100%;
+  padding: 1rem;
+  overflow: hidden;
+  height: 40vh;
+}
+.recommendedCard {
+  position: relative;
+  min-width: 20%;
+  border: 1px solid black;
+  border-radius: 5px;
 }
 .recommendedMedia {
-  max-width: 80%;
-   background-color: rgba(0, 0, 0, 0.5);
-   background-blend-mode: 'darken';
-   border-radius: 10px 10px 0 0 ;
- }
-
- .Rtitle {
-display: flex;
-flex-direction: column;
-align-items: flex-start;
-justify-content: space-around;
-  padding: 15px
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  background-blend-mode: "darken";
+  border-radius: 10px 10px 0 0;
 }
-.actions{
+
+.Rtitle {
+  max-width: 70%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  overflow: hidden;
+}
+
+.actions {
   display: flex;
   justify-content: flex-end;
   align-self: flex-end;
 }
-.link{
+.link {
+  max-width: 100%;
   text-decoration: none;
   color: black;
+  display: flex;
+}
+.cardImg {
+  max-width: 100%;
+  height: 100%;
 }

@@ -1,31 +1,32 @@
 import React, { useContext } from 'react';
-
-import { CircularProgress, Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import Post from './Post/Post';
 import classes from './Styles.module.css';
 import { PostsContext } from '../../context/PostsCtx';
+import Notifications from '../Notifications/Notifications';
 
-const Posts = ({ setRender }) => {
-  const { posts, err, isLoading } = useContext(PostsContext);
-  return isLoading ? (
-    <CircularProgress />
-  ) : (
+const Posts = () => {
+  const { posts } = useContext(PostsContext);
+  return (
     <Grid
       className={classes.mainContainer}
       container
       alignitem="stretch"
-      spacing={3}
+      spacing={1}
     >
+      <Notifications />
       {posts.map((post) => (
-        <Grid key={post._id} item xs={12} sm={6} lg={4}>
-          <Post post={post} setRender={setRender} />
+        <Grid
+          key={post._id}
+          item
+          xs={6}
+          sm={3}
+          lg={2.4}
+          className={classes.cardGrid}
+        >
+          <Post post={post} />
         </Grid>
       ))}
-      {err && (
-        <Typography variant="h3" gutterBottom>
-          Something went wrong!.. try again later{' '}
-        </Typography>
-      )}
     </Grid>
   );
 };

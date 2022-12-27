@@ -1,4 +1,5 @@
 .searchBar {
+  margin-top: 0.5em;
   margin-right: 0.5em;
   display: flex;
   flex-direction: row !important;
@@ -23,7 +24,11 @@
   font-size: 13px;
   width: 20%;
 }
-@media (max-width: 900px) {
+.chip {
+  width: 450px;
+  overflow: hidden;
+}
+@media (max-width: 800px) {
   .searchBar {
     margin-top: 2em;
     margin-left: 0.5em;
@@ -49,7 +54,7 @@
     margin-bottom: 0.5em;
   }
   .searchBar {
-    margin-top: 0.2em;
+    margin-top: 0.5em;
     margin-bottom: 2em;
     flex-direction: column !important;
     min-height: 13vh;

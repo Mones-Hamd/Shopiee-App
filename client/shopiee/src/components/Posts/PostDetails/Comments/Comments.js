@@ -1,33 +1,25 @@
-import React, { useState, useRef, useContext } from 'react';
+import React from 'react';
 import { Typography, Button, TextField, CircularProgress } from '@mui/material';
 import classes from './Styles.module.css';
-import { FetchContext } from '../../../../context/fetchCtx';
 import SendIcon from '@mui/icons-material/Send';
+import { useComment } from '../../../../hooks/useComment';
 const Comments = ({ post }) => {
-  const { err, isLoading, FetchPosts } = useContext(FetchContext);
-
+  const { setUserComment, getComment, getComments, commentsRef } =
+    useComment(post);
   const user = JSON.parse(localStorage.getItem('profile'));
-  const [comment, setComment] = useState('');
-  const [comments, setComments] = useState(post.comments);
-  const commentsRef = useRef();
   const handleComment = async (e) => {
-    const userComment = `${user.result.name}: ${comment}`;
-    const newComment = await FetchPosts(
-      `http://localhost:5000/api/comments/${post._id}`,
-      { userComment },
-      'Put',
-    );
-    setComments(newComment);
-    setComment('');
+    const userComment = `${user.result.name}: ${getComment.comment}`;
+    setUserComment.perform(userComment);
     commentsRef.current.scrollIntoView({ behavior: 'smooth' });
   };
+
   return (
     <div className={classes.commentsOuterContainer}>
-      <div className={classes.commentsInnerContainer}>
+      <div className={classes.commentsInnerContainer} style={{ width: '50%' }}>
         <Typography gutterBottom variant="h6">
           Comments
         </Typography>
-        {comments?.map((comm, indx) => (
+        {getComments.comments?.map((comm, indx) => (
           <Typography key={indx} gutterBottom variant="subtitle1">
             <strong>{comm.split(': ')[0]}</strong>
             {comm.split(':')[1]}
@@ -36,26 +28,25 @@ const Comments = ({ post }) => {
         <div ref={commentsRef} />
       </div>
       {user?.result?.name && (
-        <div style={{ width: '70%' }}>
+        <div style={{ width: '50%' }}>
           <Typography gutterBottom variant="h6">
             Leave a comment and FeedBack
           </Typography>
-
           <TextField
             fullWidth
             rows={4}
             variant="outlined"
             label="Comment"
             multiline
-            value={comment}
-            onChange={(e) => setComment(e.target.value)}
+            value={getComment.comment}
+            onChange={(e) => getComment.setComment(e.target.value)}
           />
-          {isLoading && <CircularProgress />}
+          {setUserComment.isLoading && <CircularProgress />}
           <br />
           <Button
             style={{ marginTop: '10px' }}
             fullWidth
-            disabled={!comment.length}
+            disabled={!getComment.comment.length}
             color="primary"
             variant="contained"
             onClick={handleComment}
@@ -63,7 +54,9 @@ const Comments = ({ post }) => {
             comment &nbsp; &nbsp;
             <SendIcon />
           </Button>
-          {err && <Typography variant="h6">{err}</Typography>}
+          {setUserComment.isError && (
+            <Typography variant="h6">something went wrong</Typography>
+          )}
         </div>
       )}
     </div>

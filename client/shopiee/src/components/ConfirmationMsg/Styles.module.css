@@ -1,0 +1,18 @@
+.messageContainer {
+  position: absolute;
+  z-index: 999999;
+  left: 25%;
+}
+.msgPaper {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 20vh;
+  margin: 10px auto;
+}
+.msgAction {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

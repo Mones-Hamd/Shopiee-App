@@ -6,7 +6,7 @@
   border-radius: 5px;
 }
 
-a{
+a {
   text-decoration: none;
   color: white;
   display: flex;
@@ -14,8 +14,8 @@ a{
   margin: 10px;
 }
 .side {
-  margin:20px;
+  margin: 20px;
 }
-.right{
+.right {
   padding: 10px;
 }

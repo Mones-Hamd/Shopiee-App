@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Paper,
@@ -7,36 +7,40 @@ import {
   Grid,
   Button,
   CircularProgress,
-} from '@mui/material';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Input from './Input';
-import classes from './Styles.module.css';
-import { AuthContext } from '../../context/Auth';
-import { useNavigate } from 'react-router';
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
-import { Link } from 'react-router-dom';
-import { GoogleLogin } from '@react-oauth/google';
-import jwtDecode from 'jwt-decode';
-import useFrom from '../../hooks/useForm';
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import Input from "./Input";
+import classes from "./Styles.module.css";
+import { useNavigate } from "react-router";
+import HomeRoundedIcon from "@mui/icons-material/HomeRounded";
+import { Link } from "react-router-dom";
+import { GoogleLogin } from "@react-oauth/google";
+import jwtDecode from "jwt-decode";
+import useFrom from "../../hooks/useForm";
+import { useAuth } from "../../hooks/useAuth";
+import { AuthContext } from "../../context/AuthCtx";
 
-const Auth = () => {
+const AuthForm = () => {
   const [isAuth, setIsAuth] = useState(true);
   const navigate = useNavigate();
-  const { sign, err, isLoading } = useContext(AuthContext);
-
+  const { signIn, signUp } = useAuth();
+  const { setProfile } = useContext(AuthContext);
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
   const onSuccess = async (credentialResponse) => {
     const decodedToken = await jwtDecode(credentialResponse.credential);
-
+    setProfile({
+      result: decodedToken,
+      token: credentialResponse.credential,
+    });
     localStorage.setItem(
-      'profile',
+      "profile",
       JSON.stringify({
         result: decodedToken,
         token: credentialResponse.credential,
-      }),
+      })
     );
-    navigate('/');
+    navigate("/");
   };
   const onError = () => {
     setIsAuth(false);
@@ -44,23 +48,26 @@ const Auth = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSignUp) {
-      await sign('http://localhost:5000/user/signup', formData);
-      const user = await JSON.parse(localStorage.getItem('profile')).token;
-      if (user) {
-        navigate('/');
-      } else {
-        setIsAuth(false);
-      }
+      signUp.perform(formData);
     } else {
-      await sign('http://localhost:5000/user/signin', formData);
-      const user = await JSON.parse(localStorage.getItem('profile')).token;
-      if (user) {
-        navigate('/');
-      } else {
-        setIsAuth(false);
-      }
+      await signIn.perform(formData);
     }
   };
+  useEffect(() => {
+    if (signIn.error || signUp.error) {
+      setIsAuth(false);
+    }
+    if (signIn.isSuccess || signUp.isSuccess) {
+      setIsAuth(true);
+      navigate("/");
+    }
+  }, [
+    signIn.error,
+    signIn.isSuccess,
+    navigate,
+    signUp.error,
+    signUp.isSuccess,
+  ]);
   const [formData, handleChange] = useFrom();
 
   const handleShowPassword = () => {
@@ -77,8 +84,9 @@ const Auth = () => {
         <Avatar className={classes.avatar}>
           <LockOutlinedIcon color="secondary" />
         </Avatar>
-        {isLoading && <CircularProgress />}
-        <Typography variant="h5">{isSignUp ? 'Sign Up' : 'Sign In'}</Typography>
+
+        {(signIn.isLoading || signUp.isLoading) && <CircularProgress />}
+        <Typography variant="h5">{isSignUp ? "Sign Up" : "Sign In"}</Typography>
         <form className={classes.form} onSubmit={handleSubmit}>
           <Grid container spacing={2}>
             {isSignUp && (
@@ -109,7 +117,7 @@ const Auth = () => {
               label="Password"
               handleChange={handleChange}
               handleShowPassword={handleShowPassword}
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
             />
             {isSignUp && (
               <Input
@@ -127,23 +135,23 @@ const Auth = () => {
             color="primary"
             className={classes.submit}
           >
-            {isSignUp ? 'Sign Up' : 'Sign In'}
+            {isSignUp ? "Sign Up" : "Sign In"}
           </Button>
           <GoogleLogin onSuccess={onSuccess} onError={onError} />
           <Grid container justifyContent="flex-end">
             <Grid item>
               <Button onClick={switchMode}>
                 {isSignUp
-                  ? 'Already have an account? Sign In'
+                  ? "Already have an account? Sign In"
                   : "Don't have an account? Sign Up"}
               </Button>
             </Grid>
           </Grid>
-          {err && <Typography variant="h6">{err}</Typography>}
+
           {!isAuth && (
             <Grid className={classes.notAuth}>
               <Typography variant="body2">Wrong Password or Email</Typography>
-              <Link to={'/'}>
+              <Link to={"/"}>
                 <HomeRoundedIcon />
               </Link>
             </Grid>
@@ -154,4 +162,4 @@ const Auth = () => {
   );
 };
 
-export default Auth;
+export default AuthForm;

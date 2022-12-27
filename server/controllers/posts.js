@@ -3,7 +3,7 @@ import PostItem from '../models/PostItem.js';
 export const getPosts = async (req, res) => {
   const { page } = req.query;
   try {
-    const LIMIT = 6;
+    const LIMIT = 15;
     const startIndex = (Number(page) - 1) * LIMIT;
     const total = await PostItem.countDocuments({});
     const posts = await PostItem.find()
@@ -11,6 +11,7 @@ export const getPosts = async (req, res) => {
       .limit(LIMIT)
       .skip(startIndex);
     res.status(200).json({
+      success: true,
       data: posts,
       currentPage: Number(page),
       numberOfPages: Math.ceil(total / LIMIT),
@@ -29,7 +30,11 @@ export const createPost = async (req, res) => {
   });
   try {
     await newPost.save(newPost);
-    res.status(201).json(newPost);
+    res.status(201).json({
+      success: true,
+      newPost,
+      message: 'Item has published successfully!',
+    });
   } catch (err) {
     res.status(409).json({ msg: err.msg });
   }
@@ -43,7 +48,11 @@ export const updatePost = async (req, res) => {
   const updatedPost = await PostItem.findByIdAndUpdate(_id, post, {
     new: true,
   });
-  res.json(updatedPost);
+  res.json({
+    success: true,
+    updatedPost,
+    message: 'Item has updated successfully!',
+  });
 };
 export const deletePost = async (req, res) => {
   const { id } = req.params;
@@ -51,8 +60,12 @@ export const deletePost = async (req, res) => {
   if (!mongoose.Types.ObjectId.isValid(id))
     return res.status(404).send(`No post with that ${id}`);
   await PostItem.findByIdAndRemove(id);
-  res.json({ message: 'post deleted successfully' });
+  res.json({
+    success: true,
+    message: 'Item has deleted successfully',
+  });
 };
+
 export const likePost = async (req, res) => {
   const { id } = req.params;
   if (!req.userId) res.json({ message: 'Unauthnticated' });
@@ -70,7 +83,11 @@ export const likePost = async (req, res) => {
     new: true,
   });
 
-  res.status(200).json(updatedPost);
+  res.status(200).json({
+    success: true,
+    updatedPost,
+    message: null,
+  });
 };
 export const getPostsBySearch = async (req, res) => {
   const { searchQuery, tags } = req.query;
@@ -81,7 +98,7 @@ export const getPostsBySearch = async (req, res) => {
       $or: [{ title }, { tags: { $in: tags.split(',') } }],
     });
 
-    res.json({ data: posts });
+    res.json({ success: true, data: posts });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -92,7 +109,10 @@ export const getPost = async (req, res) => {
   try {
     const post = await PostItem.findById(id);
 
-    res.status(200).json({ data: [post] });
+    res.status(200).json({
+      success: true,
+      data: post,
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
@@ -112,5 +132,9 @@ export const commentOnPost = async (req, res) => {
     new: true,
   });
 
-  res.status(200).json(updatedPost);
+  res.status(200).json({
+    success: true,
+    data: updatedPost,
+    message: 'Comment has added successfully!',
+  });
 };
