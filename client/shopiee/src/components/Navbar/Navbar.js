@@ -91,26 +91,26 @@ const Navbar = () => {
       </Box>
       <div className={classes.toolbar1}>
         <Typography variant="h6">
-          <Link to="/" className={classes.link}>
+          <Link to="/" className={classes.navLink}>
             {' '}
             Home
           </Link>
         </Typography>
         <Typography variant="h6">
-          <Link to="/contact" className={classes.link}>
+          <Link to="/contact" className={classes.navLink}>
             {' '}
             Contact
           </Link>
         </Typography>
         <Typography variant="h6">
-          <Link to="/support" className={classes.link}>
+          <Link to="/support" className={classes.navLink}>
             {' '}
             Support
           </Link>
         </Typography>
         {profile && (
           <Typography variant="h6">
-            <Link to="/post" className={classes.link}>
+            <Link to="/post" className={classes.navLink}>
               {' '}
               Post Item
             </Link>
@@ -136,15 +136,16 @@ const Navbar = () => {
                 </Avatar>
               </Link>
               <Link to="/profile">
-                <AiOutlineUser color="black" className={classes.icons} />
                 <Typography className={classes.userName} color="black">
                   {profile?.result?.name}
                 </Typography>
               </Link>
             </div>
-            <Link to="/auth" className={classes.link} onClick={logout}>
-              <AiOutlineLogout className={classes.icons} color="blue" />
-              logout
+            <Link to="/auth" className={classes.navLink} onClick={logout}>
+              <div className={classes.profile}>
+                <AiOutlineLogout className={classes.icons} color="blue" />
+                <p>logout</p>
+              </div>
             </Link>
           </div>
         ) : (

@@ -4,7 +4,7 @@
   margin-left: -2.9%;
   margin-top: -3%;
   background-color: rgba(0, 0, 0, 0.5);
-  background-blend-mode: "darken";
+  background-blend-mode: 'darken';
 }
 .border {
   border: solid;
@@ -17,7 +17,7 @@
   margin-top: 10px;
   width: 95%;
   padding: 0.001em;
-  display: "flex";
+  display: 'flex';
   flex-direction: column;
   justify-content: space-around;
   border-radius: 5px;
@@ -42,7 +42,7 @@
 .overlay2 {
   position: absolute;
   right: 1px;
-  top: 0.1em;
+  top: 0.5em;
   color: white;
   cursor: pointer;
 }
@@ -68,7 +68,7 @@
 }
 .editFeild {
   width: 100%;
-  margin: 10px 0;
+  margin: 15px 9px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -87,21 +87,21 @@
 }
 .cardBack {
   background-color: rgba(239, 217, 175, 0.238);
-
   width: 100%;
-  max-height: 27vh;
+  height: 23vh;
   position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  top: 1px;
+  top: 2px;
   margin-top: -10px;
   -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
   transform: rotateY(180deg);
 }
 .tags {
-  margin: 1em;
+  margin-top: 1.3em;
+  margin-left: 1em;
 }
 .description {
   margin: 1em;
